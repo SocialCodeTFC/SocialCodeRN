@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  
+  mongo.socialCode:
+    image: mongo:latest
+    container_name: mongo.SocialCode  
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+      
+  api.socialCode:
+    image: mbcrump/mbcwebapi
+    container_name: API.socialCode
+    build:
+      context: .
+      dockerfile: ./SocialCode.API/Dockerfile
+      
+volumes:
+  mongodb_data_container:
+
+  
