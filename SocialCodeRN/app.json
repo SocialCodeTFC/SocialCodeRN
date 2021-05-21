@@ -1,0 +1,12 @@
+{
+  "name": "SocialCodeRN",
+  "displayName": "SocialCodeRN",
+  "expo": {
+    "name": "SocialCodeRN",
+    "slug": "SocialCodeRN",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
