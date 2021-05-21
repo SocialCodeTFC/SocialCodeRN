@@ -2,13 +2,19 @@ version: '3.7'
 
 services:
   
-  mongo.socialCode:
+  mongo.SocialCode:
     image: mongo:latest
     container_name: mongo.SocialCode  
     ports:
       - 27017:27017
     volumes:
+      - ./MongoInit/:/docker-entrypoint-initdb.d/
       - mongodb_data_container:/data/db
+    
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootPass
+      MONGO_INITDB_DATABASE: SocialCode
       
   api.socialCode:
     image: mbcrump/mbcwebapi
@@ -16,8 +22,26 @@ services:
     build:
       context: .
       dockerfile: ./SocialCode.API/Dockerfile
+    ports: 
+      - 127.0.0.1:80:80
+      - 127.0.0.1:433:433
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+      - ASPNETCORE_HTTPS_PORT=433
+     
+    volumes:
+      - ./cert/:/https/
+    depends_on:
+      - mongo.SocialCode
+        
       
 volumes:
   mongodb_data_container:
+  
+    
+  
 
   

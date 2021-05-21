@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9HExScEgveRJMCTyXDfgMo0X6EocVOByJIi9SnNpPv5CrB7hOiUX0m1RuwgD4oGvKnM80OlzbMb4cNrrDHqNkA==",
+  "dgSpecHash": "8lQcyVX/QIFB5rEZS9B+cbcJV04MVjgVgLeDidZADKozFL4dsXRK/M8IPQkIUPKvyFzPdVlH/iJ4I10XbjdXYw==",
   "success": true,
-  "projectFilePath": "/home/RED/mvarela/RiderProjects/SocialCode/SocialCode/SocialCode.Infrastructure/SocialCode.Infrastructure.csproj",
+  "projectFilePath": "/home/RED/mvarela/SocialCode/SocialCode.Infrastructure/SocialCode.Infrastructure.csproj",
   "expectedPackageFiles": [
     "/home/RED/mvarela/.nuget/packages/dnsclient/1.4.0/dnsclient.1.4.0.nupkg.sha512",
     "/home/RED/mvarela/.nuget/packages/microsoft.netcore.platforms/2.1.2/microsoft.netcore.platforms.2.1.2.nupkg.sha512",

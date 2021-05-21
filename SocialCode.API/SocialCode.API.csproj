@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Services\Comments" />
       <Folder Include="Services\Validators" />
     </ItemGroup>
 

@@ -11,6 +11,6 @@ namespace SocialCode.API.Services.Users
         Task<UserResponse> GetUserById(string id);
         Task<AuthResponse> Authenticate(AuthRequest authRequest);
         Task<UserResponse> DeleteUser(string id);
-        Task<UserResponse> ModifyUser(string id, UserRequest updatedUserRequest);
+        Task<UserResponse> ModifyUser(string id, UserRequest userRequest);
     }
 }

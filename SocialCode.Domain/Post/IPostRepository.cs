@@ -1,7 +1,12 @@
+using System.Threading.Tasks;
+
 namespace SocialCode.Domain.Post
 {
-    public class IPostRepository
+    public interface IPostRepository
     {
-        
+        Task<Post> GetPostById(string id);
+        Task<Post> Insert(Post post);
+        Task<Post> DeletePost(string id);
+        Task<Post> ModifyPost( Post updatedPost, string id);
     }
 }

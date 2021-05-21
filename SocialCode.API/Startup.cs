@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using SocialCode.API.Services.Users;
+using SocialCode.Domain.Post;
 using SocialCode.Domain.User;
 using SocialCode.Infrastructure.Config;
 using SocialCode.Infrastructure.DbContext;
@@ -43,8 +46,10 @@ namespace SocialCode.API
             services.AddSingleton<IMongoDbContext>(sp => new MongoDbContext(config.MongoDb));
 
             services.AddSingleton<IUserRepository, UserRepository>();
+            
+            services.AddSingleton<IPostRepository, PostRepository>();
 
-            services.AddSingleton<IUserService, UserService>();
+            
             
             
             services.AddAuthentication(x =>
@@ -73,8 +78,6 @@ namespace SocialCode.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
             
             app.UseAuthentication();
             
