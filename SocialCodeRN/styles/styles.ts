@@ -20,7 +20,7 @@ const size = {
     },
     default: {
         fontSize: 20,
-        lineHeight: 30,
+        lineHeight: 25,
     },
     large: {
         fontSize: 25,
@@ -28,6 +28,10 @@ const size = {
     },
     xl: {
         fontSize: 25,
+        lineHeight: 50,
+    },
+    title: {
+        fontSize: 40,
         lineHeight: 50,
     },
 };

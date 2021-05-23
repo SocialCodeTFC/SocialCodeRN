@@ -8,6 +8,7 @@ import Register from '../register';
 import NextStep from '../next-step-register';
 import AliasField from '../../base/alias-field-input';
 import PasswordField from '../../base/password-field';
+import { styles } from './login-screen.styles';
 
 type FormInputs = {
     password: string;
@@ -24,8 +25,9 @@ const LoginScreen = ({ navigation }) => {
         navigation.navigate('Home');
     };
     return (
-        <View>
+        <View style={styles.container}>
             <View>
+                <Text style={styles.text}>{'Alias'}</Text>
                 <AliasField
                     name={'alias'}
                     errors={errors}
@@ -36,6 +38,7 @@ const LoginScreen = ({ navigation }) => {
                 />
             </View>
             <View>
+                <Text style={styles.text}>{'Password'}</Text>
                 <PasswordField
                     name={'password'}
                     errors={errors}
@@ -47,6 +50,12 @@ const LoginScreen = ({ navigation }) => {
             <Text onPress={() => navigation.navigate('Register')}>
                 You do not have an account? Sign up!
             </Text>
+            <Button
+                onPress={() => {
+                    navigation.navigate('Home');
+                }}
+                title={'home'}
+            />
         </View>
     );
 };
@@ -54,7 +63,7 @@ const Login = createStackNavigator();
 const LoginNavigator = () => {
     return (
         <Login.Navigator>
-            <Login.Screen name="login" component={LoginScreen} />
+            <Login.Screen name="Sign in" component={LoginScreen} />
             <Login.Screen name="Register" component={Register} />
             <Login.Screen
                 name="NextStep"

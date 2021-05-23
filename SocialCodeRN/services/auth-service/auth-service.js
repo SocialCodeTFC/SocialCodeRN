@@ -1,4 +1,6 @@
 let axios = require('axios');
+const URI_HTTP_BASEPATH = 'http://10.0.2.2:80';
+const URI_HTTPS_BASEPATH = 'https://10.0.2.2:433';
 
 export const setAuthData = async (authData, storage) => {
     let data = JSON.stringify({
@@ -11,7 +13,7 @@ export const setAuthData = async (authData, storage) => {
 
     let config = {
         method: 'post',
-        url: 'http://10.0.2.2:5001/users/register',
+        url: 'https://10.0.2.2:5018/users/register',
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',

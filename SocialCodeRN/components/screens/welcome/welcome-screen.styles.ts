@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title: {
         ...textStylesEM.font.regular,
@@ -17,10 +19,11 @@ export const styles = StyleSheet.create({
     },
     text: {
         ...textStylesEM.font.regular,
-        ...textStylesEM.size.default,
+        ...textStylesEM.size.small,
         color: 'white',
         width: '60%',
-        marginHorizontal: '5%',
+        textAlign: 'center',
+        marginVertical: '25%',
     },
     button: {
         backgroundColor: 'white',

@@ -10,14 +10,16 @@ export const styles = StyleSheet.create({
         margin: 10,
         borderRadius: 10,
         padding: 12,
+        backgroundColor: 'white',
     },
     error: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.default,
-        borderColor: 'red',
+        borderColor: 'orange',
         borderWidth: 1,
         margin: 10,
         borderRadius: 10,
         padding: 12,
+        backgroundColor: 'white',
     },
 });

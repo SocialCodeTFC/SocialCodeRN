@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         margin: 10,
         borderRadius: 10,
+        backgroundColor: 'white',
     },
     input: {
         ...textStylesEM.font.regular,
@@ -17,10 +18,11 @@ export const styles = StyleSheet.create({
     },
     error: {
         flexDirection: 'row',
-        borderColor: 'red',
+        borderColor: 'orange',
         borderWidth: 1,
         margin: 10,
         borderRadius: 10,
+        backgroundColor: 'white',
     },
     eye: {
         alignSelf: 'center',

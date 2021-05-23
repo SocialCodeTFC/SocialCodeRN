@@ -80,6 +80,7 @@ const TabNavigator = () => {
             tabBarOptions={{
                 activeTintColor: 'gray',
                 inactiveTintColor: 'gray',
+                keyboardHidesTabBar: true,
                 style: {
                     height: 64,
                 },
