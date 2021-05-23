@@ -1,10 +1,19 @@
 const fontStyles = {
-    FontFamilyEM: 'Lato Sans',
+    FontFamilyEM: 'Lato',
 };
 
 const androidFont = {
     regular: {
         fontFamily: `${fontStyles.FontFamilyEM}-Regular`,
+    },
+    light: {
+        fontFamily: `${fontStyles.FontFamilyEM}-Light`,
+    },
+    bold: {
+        fontFamily: `${fontStyles.FontFamilyEM}-Bold`,
+    },
+    thin: {
+        fontFamily: `${fontStyles.FontFamilyEM}-Thin`,
     },
 };
 const iOSFont = {
@@ -14,6 +23,10 @@ const iOSFont = {
 };
 
 const size = {
+    xs: {
+        fontSize: 14,
+        lineHeight: 14,
+    },
     small: {
         fontSize: 14,
         lineHeight: 24,
@@ -28,7 +41,7 @@ const size = {
     },
     xl: {
         fontSize: 25,
-        lineHeight: 50,
+        lineHeight: 45,
     },
     title: {
         fontSize: 40,

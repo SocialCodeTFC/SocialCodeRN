@@ -11,10 +11,16 @@ import Profile from '../../components/screens/profile';
 import NewPost from '../../components/screens/new-post';
 import NewPostNextStep from '../../components/screens/new-post-next-step';
 import Icon from '../../components/base/icon';
-import { Menu } from 'react-native-feather';
+import { Menu, User } from 'react-native-feather';
 const Stack = createStackNavigator();
 
 const DefaultNavigator = ({ navigation }) => {
+    const forFade = ({ current, closing }) => ({
+        cardStyle: {
+            opacity: current.progress,
+        },
+    });
+
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -23,9 +29,11 @@ const DefaultNavigator = ({ navigation }) => {
                 options={{
                     headerStyle: {
                         backgroundColor: '#7752ff',
+                        height: 75,
                     },
                     headerTitle: '<Social Code>',
                     headerTitleStyle: styles.header,
+                    cardStyleInterpolator: forFade,
                     headerLeft: () => (
                         <TouchableOpacity
                             onPress={() => navigation.openDrawer()}
@@ -39,16 +47,24 @@ const DefaultNavigator = ({ navigation }) => {
                         <TouchableOpacity
                             onPress={() => navigation.navigate('Profile')}
                         >
-                            <View>
-                                <Text style={styles.buttonMenu as ViewStyle}>
-                                    {'Profile'}
-                                </Text>
+                            <View style={styles.buttonMenu}>
+                                <User color={'white'} width={40} height={40} />
                             </View>
                         </TouchableOpacity>
                     ),
                 }}
             />
-            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                    cardStyleInterpolator: forFade,
+                    headerStyle: {
+                        backgroundColor: '#7752ff',
+                        height: 75,
+                    },
+                }}
+            />
             <Stack.Screen name="CreatePost" component={NewPost} />
             <Stack.Screen
                 name="CreatePostNextStep"
@@ -69,7 +85,7 @@ const TabNavigator = () => {
                 // eslint-disable-next-line react/prop-types
                 tabBarIcon: ({ focused }) => (
                     <Icon
-                        color={focused ? 'blue' : 'gray'}
+                        color={focused ? '#7752ff' : 'gray'}
                         width={24}
                         height={24}
                         name={route.name}

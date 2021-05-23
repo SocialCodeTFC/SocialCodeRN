@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, View } from 'react-native';
+import { Button, View, Text, TouchableOpacity } from 'react-native';
+import { ArrowRight } from 'react-native-feather';
 import EmailField from '../../base/email-field-input';
 import PasswordField from '../../base/password-field/';
 import { styles } from './register-screen.styles';
@@ -28,8 +29,9 @@ const Register = ({ navigation }) => {
     };
 
     return (
-        <View>
-            <View>
+        <View style={styles.container}>
+            <View style={styles.fieldContainer}>
+                <Text style={styles.text}>Email</Text>
                 <EmailField
                     name={'email'}
                     errors={errors}
@@ -37,7 +39,8 @@ const Register = ({ navigation }) => {
                     placeholder={'Email'}
                 />
             </View>
-            <View>
+            <View style={styles.fieldContainer}>
+                <Text style={styles.text}>Password</Text>
                 <PasswordField
                     name={'password'}
                     errors={errors}
@@ -45,7 +48,8 @@ const Register = ({ navigation }) => {
                     placeholder={'Password'}
                 />
             </View>
-            <View>
+            <View style={styles.fieldContainer}>
+                <Text style={styles.text}>Repeat password</Text>
                 <PasswordField
                     name={'repeatPassword'}
                     errors={errors}
@@ -55,7 +59,15 @@ const Register = ({ navigation }) => {
                 />
             </View>
 
-            <Button title="Continue" onPress={handleSubmit(onSubmit)} />
+            <TouchableOpacity
+                onPress={handleSubmit(onSubmit)}
+                style={styles.button}
+            >
+                <View style={styles.buttonContainer}>
+                    <Text style={styles.buttonText}>{'  Next!  '}</Text>
+                    <ArrowRight stroke="#7752FF" width={50} height={50} />
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };

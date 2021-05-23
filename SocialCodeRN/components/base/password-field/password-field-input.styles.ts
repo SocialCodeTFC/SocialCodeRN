@@ -28,4 +28,10 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginRight: 10,
     },
+    errorMsg: {
+        ...textStylesEM.font.regular,
+        ...textStylesEM.size.small,
+        color: 'orange',
+        textAlign: 'right',
+    },
 });

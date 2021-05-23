@@ -8,7 +8,6 @@ const Router = () => {
     const [isTheFirstTime, setIsTheFirstTime] = useState(true);
     const [recoverUserData, setRecoverUserData] = useState(undefined);
     const [isLoading, setIsLoading] = useState(true);
-
     const getUserData = async () => {
         setRecoverUserData(
             JSON.parse(await AsyncStorage.getItem('userStorage')),

@@ -40,7 +40,9 @@ const EmailField: React.FC<EmailFieldProps> = props => {
                 }}
                 defaultValue=""
             />
-            <Text>{props.errors[props.name]?.message}</Text>
+            <Text style={styles.errorMsg}>
+                {props.errors[props.name]?.message}
+            </Text>
         </View>
     );
 };

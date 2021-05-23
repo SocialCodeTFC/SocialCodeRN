@@ -6,6 +6,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Start = createStackNavigator();
 const StartNavigator = () => {
+    const forFade = ({ current, closing }) => ({
+        cardStyle: {
+            opacity: current.progress,
+        },
+    });
     return (
         <Start.Navigator>
             <Start.Screen
@@ -16,7 +21,7 @@ const StartNavigator = () => {
             <Start.Screen
                 name={'Login'}
                 component={Login}
-                options={{ headerShown: false }}
+                options={{ headerShown: false, cardStyleInterpolator: forFade }}
             />
             <Start.Screen
                 name={'Home'}

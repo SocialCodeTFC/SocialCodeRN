@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
 import NameField from '../../base/name-field-input';
 import AsyncStorage from '@react-native-community/async-storage';
 import { authService } from '../../../services';
 import AliasField from '../../base/alias-field-input';
-
+import { styles } from './next-step-register-screen.styles';
+import { ArrowRight } from 'react-native-feather';
 type FormInputs = {
     name: string;
     surname: string;
@@ -33,8 +34,9 @@ const NextStep = (props: NextStepProps) => {
     };
 
     return (
-        <View>
-            <View>
+        <View style={styles.container}>
+            <View style={styles.fieldContainer}>
+                <Text style={styles.text}>Name</Text>
                 <NameField
                     name={'name'}
                     errors={errors}
@@ -44,7 +46,8 @@ const NextStep = (props: NextStepProps) => {
                     maxLength={14}
                 />
             </View>
-            <View>
+            <View style={styles.fieldContainer}>
+                <Text style={styles.text}>Surname</Text>
                 <NameField
                     name={'surname'}
                     errors={errors}
@@ -54,7 +57,8 @@ const NextStep = (props: NextStepProps) => {
                     maxLength={20}
                 />
             </View>
-            <View>
+            <View style={styles.fieldContainer}>
+                <Text style={styles.text}>Alias</Text>
                 <AliasField
                     name={'alias'}
                     errors={errors}
@@ -64,7 +68,15 @@ const NextStep = (props: NextStepProps) => {
                     maxLength={15}
                 />
             </View>
-            <Button title="Sign up!" onPress={handleSubmit(onSubmit)} />
+            <TouchableOpacity
+                onPress={handleSubmit(onSubmit)}
+                style={styles.button}
+            >
+                <View style={styles.buttonContainer}>
+                    <Text style={styles.buttonText}>{'Sign up!'}</Text>
+                    <ArrowRight stroke="#7752FF" width={50} height={50} />
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };
