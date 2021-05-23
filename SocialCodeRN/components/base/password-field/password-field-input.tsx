@@ -72,7 +72,9 @@ const PasswordField: React.FC<PasswordFieldProps> = props => {
                     },
                 }}
             />
-            <Text>{props.errors[props.name]?.message}</Text>
+            <Text style={styles.errorMsg}>
+                {props.errors[props.name]?.message}
+            </Text>
         </View>
     );
 };

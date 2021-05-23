@@ -11,7 +11,7 @@ const WelcomeScreen = ({ navigation }) => {
             </Text>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('Login');
+                    navigation.replace('Login');
                 }}
                 style={styles.button}
             >

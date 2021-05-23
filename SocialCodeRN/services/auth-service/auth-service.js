@@ -13,7 +13,7 @@ export const setAuthData = async (authData, storage) => {
 
     let config = {
         method: 'post',
-        url: 'https://10.0.2.2:5018/users/register',
+        url: `${URI_HTTP_BASEPATH}/users/register`,
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -46,7 +46,7 @@ export const getAuthData = async (authData, storage) => {
 
     let config = {
         method: 'post',
-        url: 'http://10.0.2.2:5001/users/auth',
+        url: `${URI_HTTP_BASEPATH}/users/auth`,
         headers: {
             'Content-Type': 'application/json',
         },

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        ...textStylesEM.font.regular,
+        ...textStylesEM.font.bold,
         ...textStylesEM.size.title,
         color: 'white',
         width: '100%',
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        ...textStylesEM.font.regular,
+        ...textStylesEM.font.bold,
         ...textStylesEM.size.default,
         color: '#7752FF',
     },

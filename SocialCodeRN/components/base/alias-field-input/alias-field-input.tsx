@@ -49,7 +49,9 @@ const AliasField = (props: AliasFieldProps) => {
                 }}
                 defaultValue=""
             />
-            <Text>{props.errors[props.name]?.message}</Text>
+            <Text style={styles.errorMsg}>
+                {props.errors[props.name]?.message}
+            </Text>
         </View>
     );
 };

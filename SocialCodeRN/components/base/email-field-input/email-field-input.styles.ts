@@ -22,4 +22,10 @@ export const styles = StyleSheet.create({
         padding: 12,
         backgroundColor: 'white',
     },
+    errorMsg: {
+        ...textStylesEM.font.regular,
+        ...textStylesEM.size.small,
+        color: 'orange',
+        textAlign: 'right',
+    },
 });
