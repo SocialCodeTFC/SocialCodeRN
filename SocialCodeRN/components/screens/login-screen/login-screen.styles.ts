@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#7752FF',
+        ...styleTokens.backgroundColor.mainViolet,
         height: '100%',
         width: '100%',
         flexDirection: 'column',
@@ -16,9 +16,9 @@ export const styles = StyleSheet.create({
     headerTitleStyle: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.large,
+        ...styleTokens.fontColor.white,
+        borderBottomColor: styleTokens.colors.white,
         flex: 1,
-        color: 'white',
-        borderBottomColor: 'white',
         borderBottomWidth: 1,
         padding: 10,
         marginHorizontal: '10%',
@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
     headerTitleStyleWithArrow: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.large,
-        color: 'white',
-        borderBottomColor: 'white',
+        ...styleTokens.fontColor.white,
+        borderBottomColor: styleTokens.colors.white,
         borderBottomWidth: 1,
         padding: 10,
         marginRight: '10%',
@@ -45,17 +45,17 @@ export const styles = StyleSheet.create({
     text: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.default,
-        color: 'white',
+        ...styleTokens.fontColor.white,
         width: '60%',
         marginHorizontal: '5%',
     },
     button: {
+        ...styleTokens.backgroundColor.white,
+        borderColor: styleTokens.colors.lightGray,
         width: 150,
         height: 50,
         borderRadius: 50,
-        borderColor: '#B3B3B3',
         borderWidth: 2,
-        backgroundColor: 'white',
         opacity: 1,
         marginVertical: 10,
         justifyContent: 'center',
@@ -69,12 +69,12 @@ export const styles = StyleSheet.create({
     buttonText: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.xl,
-        color: '#7752FF',
+        ...styleTokens.fontColor.mainViolet,
     },
     link: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.xs,
-        color: 'white',
+        ...styleTokens.fontColor.white,
         textAlign: 'center',
         marginTop: '10%',
         width: '60%',

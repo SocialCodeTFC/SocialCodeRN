@@ -1,21 +1,30 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../../styles';
+import { styleTokens, textStylesEM } from '../../../../styles';
 
 export const styles = StyleSheet.create({
     container: {
+        ...styleTokens.backgroundColor.white,
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        textAlign: 'center',
     },
     tabs: {
-        backgroundColor: 'white',
-        width: '33%',
+        ...styleTokens.backgroundColor.white,
+        justifyContent: 'center',
+        width: '33.3%',
+        height: 40,
     },
     tabsOnFocus: {
-        backgroundColor: 'white',
-        borderBottomColor: '#7752ff',
+        ...styleTokens.backgroundColor.white,
+        borderBottomColor: styleTokens.colors.mainViolet,
+        justifyContent: 'center',
         borderBottomWidth: 1,
+        width: '33.3%',
+        height: 40,
+    },
+    text: {
+        ...textStylesEM.font.regular,
+        ...textStylesEM.size.default,
+        ...styleTokens.fontColor.black,
+        textAlign: 'center',
     },
 });

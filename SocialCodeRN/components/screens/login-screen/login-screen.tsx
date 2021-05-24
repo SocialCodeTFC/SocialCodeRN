@@ -2,10 +2,7 @@ import React from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { authService } from '../../../services';
-import {
-    createStackNavigator,
-    HeaderBackButton,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import Register from '../register';
 import NextStep from '../next-step-register';
@@ -13,6 +10,7 @@ import AliasField from '../../base/alias-field-input';
 import PasswordField from '../../base/password-field';
 import { styles } from './login-screen.styles';
 import { ArrowRight, ArrowLeft } from 'react-native-feather';
+import { styleTokens } from '../../../styles';
 
 type FormInputs = {
     password: string;
@@ -63,7 +61,11 @@ const LoginScreen = ({ navigation }) => {
             >
                 <View style={styles.buttonContainer}>
                     <Text style={styles.buttonText}>{'Sign in!'}</Text>
-                    <ArrowRight stroke="#7752FF" width={50} height={50} />
+                    <ArrowRight
+                        stroke={styleTokens.colors.mainViolet}
+                        width={50}
+                        height={50}
+                    />
                 </View>
             </TouchableOpacity>
             <Button
@@ -90,7 +92,7 @@ const LoginNavigator = ({ navigation }) => {
                 options={{
                     cardStyleInterpolator: forFade,
                     headerStyle: {
-                        backgroundColor: '#7752FF',
+                        ...styleTokens.backgroundColor.mainViolet,
                         shadowColor: 'transparent',
                     },
                     headerTitleStyle: styles.headerTitleStyle,
@@ -103,15 +105,19 @@ const LoginNavigator = ({ navigation }) => {
                     headerTitle: 'Sign up',
                     cardStyleInterpolator: forFade,
                     headerStyle: {
-                        backgroundColor: '#7752FF',
+                        ...styleTokens.backgroundColor.mainViolet,
                         shadowColor: 'transparent',
                     },
                     headerLeft: () => (
                         <TouchableOpacity
-                            onPress={() => navigation.goBack()}
+                            onPress={() => navigation.pop()}
                             style={styles.backButton}
                         >
-                            <ArrowLeft stroke="white" width={40} height={40} />
+                            <ArrowLeft
+                                stroke={styleTokens.colors.white}
+                                width={40}
+                                height={40}
+                            />
                         </TouchableOpacity>
                     ),
 
@@ -124,15 +130,19 @@ const LoginNavigator = ({ navigation }) => {
                     headerTitle: 'Sign up',
                     cardStyleInterpolator: forFade,
                     headerStyle: {
-                        backgroundColor: '#7752FF',
+                        ...styleTokens.backgroundColor.mainViolet,
                         shadowColor: 'transparent',
                     },
                     headerLeft: () => (
                         <TouchableOpacity
-                            onPress={() => navigation.goBack()}
+                            onPress={() => navigation.pop()}
                             style={styles.backButton}
                         >
-                            <ArrowLeft stroke="white" width={40} height={40} />
+                            <ArrowLeft
+                                stroke={styleTokens.colors.white}
+                                width={40}
+                                height={40}
+                            />
                         </TouchableOpacity>
                     ),
                     headerTitleStyle: styles.headerTitleStyleWithArrow,

@@ -10,4 +10,7 @@ export const styles = StyleSheet.create({
         ...textStylesEM.size.large,
         color: '#ffffff',
     },
+    backButton: {
+        paddingLeft: '20%',
+    },
 });

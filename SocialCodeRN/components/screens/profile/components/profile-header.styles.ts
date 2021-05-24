@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../../styles';
+import { styleTokens, textStylesEM } from '../../../../styles';
 
 export const styles = StyleSheet.create({
     containerCol: {
+        ...styleTokens.backgroundColor.white,
+        borderBottomColor: styleTokens.colors.darkGray,
         flexDirection: 'column',
         width: '100%',
-        borderBottomColor: 'gray',
         borderBottomWidth: 1,
     },
     container: {
@@ -16,7 +17,7 @@ export const styles = StyleSheet.create({
     text: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.large,
-        color: 'black',
+        ...styleTokens.fontColor.black,
         margin: 10,
     },
     image: {
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
     alias: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.default,
-        color: 'gray',
+        ...styleTokens.fontColor.darkGray,
         margin: 10,
     },
 });

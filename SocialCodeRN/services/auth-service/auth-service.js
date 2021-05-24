@@ -73,7 +73,7 @@ export const getUserById = async authData => {
     let userData;
     let config = {
         method: 'get',
-        url: `http://10.0.2.2:5001/users/${authData.id}`,
+        url: `${URI_HTTP_BASEPATH}/users/${authData.id}`,
         headers: {
             Authorization: `Bearer ${authData.token}`,
             'Content-Type': 'application/json',
