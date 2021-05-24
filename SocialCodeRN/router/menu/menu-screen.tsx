@@ -4,23 +4,24 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { styles } from './menu-screen.styles';
-import { View, ViewStyle, Text } from 'react-native';
+import { View } from 'react-native';
 import HomeScreen from '../../components/screens/home';
 import Login from '../../components/screens/login-screen';
 import Profile from '../../components/screens/profile';
 import NewPost from '../../components/screens/new-post';
 import NewPostNextStep from '../../components/screens/new-post-next-step';
 import Icon from '../../components/base/icon';
-import { Menu, User } from 'react-native-feather';
+import { Menu, User, ArrowLeft } from 'react-native-feather';
+import { styleTokens } from '../../styles';
+
+const forFade = ({ current, closing }) => ({
+    cardStyle: {
+        opacity: closing.progress,
+    },
+});
 const Stack = createStackNavigator();
 
-const DefaultNavigator = ({ navigation }) => {
-    const forFade = ({ current, closing }) => ({
-        cardStyle: {
-            opacity: current.progress,
-        },
-    });
-
+const StackTabsNavigator = ({ navigation }) => {
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -28,7 +29,7 @@ const DefaultNavigator = ({ navigation }) => {
                 component={HomeScreen}
                 options={{
                     headerStyle: {
-                        backgroundColor: '#7752ff',
+                        ...styleTokens.backgroundColor.mainViolet,
                         height: 75,
                     },
                     headerTitle: '<Social Code>',
@@ -39,7 +40,11 @@ const DefaultNavigator = ({ navigation }) => {
                             onPress={() => navigation.openDrawer()}
                         >
                             <View style={styles.buttonMenu}>
-                                <Menu color={'white'} width={40} height={40} />
+                                <Menu
+                                    color={styleTokens.colors.white}
+                                    width={40}
+                                    height={40}
+                                />
                             </View>
                         </TouchableOpacity>
                     ),
@@ -48,27 +53,15 @@ const DefaultNavigator = ({ navigation }) => {
                             onPress={() => navigation.navigate('Profile')}
                         >
                             <View style={styles.buttonMenu}>
-                                <User color={'white'} width={40} height={40} />
+                                <User
+                                    color={styleTokens.colors.white}
+                                    width={40}
+                                    height={40}
+                                />
                             </View>
                         </TouchableOpacity>
                     ),
                 }}
-            />
-            <Stack.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    cardStyleInterpolator: forFade,
-                    headerStyle: {
-                        backgroundColor: '#7752ff',
-                        height: 75,
-                    },
-                }}
-            />
-            <Stack.Screen name="CreatePost" component={NewPost} />
-            <Stack.Screen
-                name="CreatePostNextStep"
-                component={NewPostNextStep}
             />
         </Stack.Navigator>
     );
@@ -76,7 +69,7 @@ const DefaultNavigator = ({ navigation }) => {
 
 const Tabs = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const TabNavigator = ({ navigation }) => {
     return (
         <Tabs.Navigator
             initialRouteName="Home"
@@ -85,7 +78,11 @@ const TabNavigator = () => {
                 // eslint-disable-next-line react/prop-types
                 tabBarIcon: ({ focused }) => (
                     <Icon
-                        color={focused ? '#7752ff' : 'gray'}
+                        color={
+                            focused
+                                ? styleTokens.colors.mainViolet
+                                : styleTokens.colors.darkGray
+                        }
                         width={24}
                         height={24}
                         name={route.name}
@@ -94,8 +91,8 @@ const TabNavigator = () => {
                 title: route.name,
             })}
             tabBarOptions={{
-                activeTintColor: 'gray',
-                inactiveTintColor: 'gray',
+                activeTintColor: styleTokens.colors.mainViolet,
+                inactiveTintColor: styleTokens.colors.darkGray,
                 keyboardHidesTabBar: true,
                 style: {
                     height: 64,
@@ -109,9 +106,97 @@ const TabNavigator = () => {
                 },
             }}
         >
-            <Tabs.Screen name="Home" component={DefaultNavigator} />
+            <Tabs.Screen name="Home" component={StackTabsNavigator} />
             <Tabs.Screen name="Login" component={Login} />
         </Tabs.Navigator>
+    );
+};
+const DefaultNavigator = ({ navigation }) => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Home"
+                component={TabNavigator}
+                options={{
+                    headerShown: false,
+                    cardStyleInterpolator: forFade,
+                }}
+            />
+            <Stack.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                    cardStyleInterpolator: forFade,
+                    headerStyle: {
+                        ...styleTokens.backgroundColor.mainViolet,
+                        height: 75,
+                    },
+                    headerTitleStyle: styles.header,
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                            style={styles.backButton}
+                        >
+                            <ArrowLeft
+                                stroke={styleTokens.colors.white}
+                                width={40}
+                                height={40}
+                            />
+                        </TouchableOpacity>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="CreatePost"
+                component={NewPost}
+                options={{
+                    cardStyleInterpolator: forFade,
+                    title: 'New post',
+                    headerStyle: {
+                        ...styleTokens.backgroundColor.mainViolet,
+                        height: 75,
+                    },
+                    headerTitleStyle: styles.header,
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                            style={styles.backButton}
+                        >
+                            <ArrowLeft
+                                stroke={styleTokens.colors.white}
+                                width={40}
+                                height={40}
+                            />
+                        </TouchableOpacity>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="CreatePostNextStep"
+                component={NewPostNextStep}
+                options={{
+                    cardStyleInterpolator: forFade,
+                    title: 'New post',
+                    headerStyle: {
+                        ...styleTokens.backgroundColor.mainViolet,
+                        height: 75,
+                    },
+                    headerTitleStyle: styles.header,
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                            style={styles.backButton}
+                        >
+                            <ArrowLeft
+                                stroke={styleTokens.colors.white}
+                                width={40}
+                                height={40}
+                            />
+                        </TouchableOpacity>
+                    ),
+                }}
+            />
+        </Stack.Navigator>
     );
 };
 
@@ -120,7 +205,7 @@ const Drawer = createDrawerNavigator();
 function MenuDrawer() {
     return (
         <Drawer.Navigator initialRouteName={'Home'}>
-            <Drawer.Screen name="Home" component={TabNavigator} />
+            <Drawer.Screen name="Home" component={DefaultNavigator} />
         </Drawer.Navigator>
     );
 }

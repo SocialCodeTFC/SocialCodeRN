@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
     container: {
+        ...styleTokens.backgroundColor.white,
+        borderColor: styleTokens.colors.black,
         flexDirection: 'row',
-        borderColor: 'black',
         borderWidth: 1,
         margin: 10,
         borderRadius: 10,
-        backgroundColor: 'white',
     },
     input: {
         ...textStylesEM.font.regular,
@@ -17,12 +17,12 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     error: {
+        ...styleTokens.backgroundColor.white,
+        borderColor: styleTokens.colors.orange,
         flexDirection: 'row',
-        borderColor: 'orange',
         borderWidth: 1,
         margin: 10,
         borderRadius: 10,
-        backgroundColor: 'white',
     },
     eye: {
         alignSelf: 'center',
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     errorMsg: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.small,
-        color: 'orange',
+        ...styleTokens.fontColor.orange,
         textAlign: 'right',
     },
 });

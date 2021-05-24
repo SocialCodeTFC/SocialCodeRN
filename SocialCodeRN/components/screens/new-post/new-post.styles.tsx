@@ -1,35 +1,43 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
+    container: {
+        ...styleTokens.backgroundColor.white,
+        height: '100%',
+        padding: 10,
+        alignItems: 'center',
+    },
     text: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.default,
-        color: 'gray',
+        ...styleTokens.fontColor.black,
     },
     button: {
-        width: 120,
+        ...styleTokens.backgroundColor.mainViolet,
+        width: 150,
         height: 50,
         borderRadius: 50,
-        backgroundColor: '#7752ff',
         opacity: 1,
-        margin: 10,
         textAlign: 'center',
         alignItems: 'center',
     },
-    container: {
+    buttonContainer: {
         width: '100%',
         position: 'absolute',
-        bottom: 0,
+        bottom: '20%',
         left: '60%',
     },
+
     contentButton: {
         flexDirection: 'row',
-        textAlign: 'center',
     },
     nextButton: {
-        color: 'white',
         ...textStylesEM.font.regular,
         ...textStylesEM.size.xl,
+        ...styleTokens.fontColor.white,
+    },
+    inputContainer: {
+        width: '90%',
     },
 });

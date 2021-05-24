@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
     input: {
         ...textStylesEM.font.regular,
         ...textStylesEM.size.default,
-        borderColor: 'black',
+        borderColor: styleTokens.colors.black,
         borderWidth: 1,
         margin: 10,
         borderRadius: 10,

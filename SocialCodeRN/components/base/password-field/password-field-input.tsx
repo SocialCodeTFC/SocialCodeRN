@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 import { View, ViewStyle, Text, TextInput } from 'react-native';
 import { styles } from './password-field-input.styles';
 import { Eye, EyeOff } from 'react-native-feather';
+import { styleTokens } from '../../../styles';
 
 interface PasswordFieldProps {
     name: string;
@@ -44,7 +45,7 @@ const PasswordField: React.FC<PasswordFieldProps> = props => {
                                 <Eye
                                     width={30}
                                     height={30}
-                                    color={'black'}
+                                    color={styleTokens.colors.black}
                                     style={styles.eye}
                                     onPress={() => {
                                         setVisible(!visible);
@@ -54,7 +55,7 @@ const PasswordField: React.FC<PasswordFieldProps> = props => {
                                 <EyeOff
                                     width={30}
                                     height={30}
-                                    color={'black'}
+                                    color={styleTokens.colors.black}
                                     style={styles.eye}
                                     onPress={() => {
                                         setVisible(!visible);

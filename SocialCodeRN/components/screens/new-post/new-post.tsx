@@ -5,6 +5,7 @@ import TitleField from '../../base/title-field-input';
 import BodyPost from '../../base/post-body-field';
 import { styles } from './new-post.styles';
 import { ArrowRight } from 'react-native-feather';
+import { styleTokens } from '../../../styles';
 interface NewPostProps {
     navigation: any;
     route: any;
@@ -23,34 +24,45 @@ const NewPost = (props: NewPostProps) => {
         navigation.navigate('CreatePostNextStep', { data });
     };
     return (
-        <View>
-            <Text>{'Title'}</Text>
-            <TitleField
-                name="title"
-                placeholder="Post title"
-                required={true}
-                maxLength="100"
-                errors={errors}
-                control={control}
-            />
-            <Text>{'Description'}</Text>
-            <BodyPost
-                name="Description"
-                placeholder="Type a description..."
-                required={true}
-                maxLength={200}
-                errors={errors}
-                control={control}
-                numLines={4}
-            />
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <View style={styles.inputContainer}>
+                <Text style={styles.text}>{'Title'}</Text>
+                <TitleField
+                    name="title"
+                    placeholder="Post title"
+                    required={true}
+                    maxLength="100"
+                    errors={errors}
+                    control={control}
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Text style={styles.text}>{'Hashtags'}</Text>
+            </View>
+            <View style={styles.inputContainer}>
+                <Text style={styles.text}>{'Description'}</Text>
+                <BodyPost
+                    name="Description"
+                    placeholder="Type a description..."
+                    required={true}
+                    maxLength={200}
+                    errors={errors}
+                    control={control}
+                    numLines={4}
+                />
+            </View>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={handleSubmit(onSubmit)}
                 >
                     <View style={styles.contentButton}>
                         <Text style={styles.nextButton}>{'Next!'}</Text>
-                        <ArrowRight stroke="white" width={50} height={50} />
+                        <ArrowRight
+                            stroke={styleTokens.colors.white}
+                            width={50}
+                            height={50}
+                        />
                     </View>
                 </TouchableOpacity>
             </View>

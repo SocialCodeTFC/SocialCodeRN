@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { textStylesEM } from '../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
     containerButton: {
@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
         left: '75%',
     },
     container: {
+        ...styleTokens.backgroundColor.white,
         width: '100%',
         height: '100%',
     },
