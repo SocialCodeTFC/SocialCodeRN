@@ -3,6 +3,7 @@ import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
 import TitleField from '../../base/title-field-input';
 import BodyPost from '../../base/post-body-field';
+import HashtagField from '../../base/hashtag-field-input';
 import { styles } from './new-post.styles';
 import { ArrowRight } from 'react-native-feather';
 import { styleTokens } from '../../../styles';
@@ -11,7 +12,9 @@ interface NewPostProps {
     route: any;
 }
 type FormInputs = {
-    title: string;
+    Title: string;
+    Tags: [];
+    Description: string;
 };
 const NewPost = (props: NewPostProps) => {
     const { navigation, route } = props;
@@ -28,7 +31,7 @@ const NewPost = (props: NewPostProps) => {
             <View style={styles.inputContainer}>
                 <Text style={styles.text}>{'Title'}</Text>
                 <TitleField
-                    name="title"
+                    name="Title"
                     placeholder="Post title"
                     required={true}
                     maxLength="100"
@@ -38,6 +41,14 @@ const NewPost = (props: NewPostProps) => {
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.text}>{'Hashtags'}</Text>
+                <HashtagField
+                    name="Tags"
+                    placeholder="Post title"
+                    required={true}
+                    maxLength="100"
+                    errors={errors}
+                    control={control}
+                />
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.text}>{'Description'}</Text>
