@@ -1,13 +1,12 @@
-# SocialCode
+# SocialCodeRN
 
 **Requirements**
 
-* Docker
-* Docker-compose
 * Yarn
 * Android SDK
 * JAVA
 * Npm 16.1.0
+* Visual Studio Code
 
 **Set up**  
 ```bash
