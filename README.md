@@ -42,6 +42,8 @@ yarn start
 ````
 Then, press **R**. If metro don't recognize the aplication at first, press again R.
 
+If after running metro the app has a white screen, click on the square button (the navigation buttons) and delete the app. Re-run the app clicking on it in the emulator screen.
+
 **Important**
 
 This guide is only for the **Frontend** if you want to run the server, the instructions are in **Backend** repository.
