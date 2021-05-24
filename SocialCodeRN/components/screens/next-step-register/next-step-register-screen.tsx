@@ -30,7 +30,7 @@ const NextStep = (props: NextStepProps) => {
     const onSubmit = (data: FormInputs) => {
         data = { ...route.params.data, ...data };
         authService.setAuthData(data, AsyncStorage);
-        //navigation.popToTop();
+        navigation.navigate('Home');
     };
 
     return (
@@ -80,6 +80,5 @@ const NextStep = (props: NextStepProps) => {
         </View>
     );
 };
-/*            authService.setAuthData(AsyncStorage, data);
-            navigation.popToTop(); */
+
 export default NextStep;

@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useForm } from 'react-hook-form';
 import BodyPost from '../../base/post-body-field';
 import { styles } from './new-post-next-step.styles';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import { postService } from '../../../services';
 interface NewPostNextStepProps {
     navigation: any;
     route: any;
 }
 type FormInputs = {
-    title: string;
+    Code: string;
 };
+type UserData = {
+    id: string;
+    token: string;
+};
+
 const NewPostNextStep = (props: NewPostNextStepProps) => {
     const { navigation, route } = props;
     const {
@@ -18,15 +24,23 @@ const NewPostNextStep = (props: NewPostNextStepProps) => {
         handleSubmit,
         formState: { errors },
     } = useForm<FormInputs>({ mode: 'onChange' });
-    const onSubmit = (data: FormInputs) => {
-        data = { ...data, ...route.params.data };
-        console.log(data);
+    const onSubmit = async (data: FormInputs) => {
+        let userData = JSON.parse(await AsyncStorage.getItem('userStorage'));
+        let userAuth = userData as UserData;
+        data = {
+            ...data,
+            ...route.params.data,
+            userId: userAuth.id,
+            userToken: userAuth.token,
+        };
+        await postService.setPost(data);
     };
+
     return (
         <View>
             <Text>{'Content'}</Text>
             <BodyPost
-                name="Body"
+                name="Code"
                 placeholder="Type a something here..."
                 required={true}
                 maxLength={2000}
