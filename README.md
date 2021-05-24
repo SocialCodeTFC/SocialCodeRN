@@ -49,5 +49,5 @@ This app was developed in android enviroment, so is probably than in iOS does no
 
 **Common mistakes**
 
-*If you are running the metro server with another app and you try to run this app, it may return an error.
-*If you want to use the app, run the backend too.
+* If you are running the metro server with another app and you try to run this app, it may return an error.
+* If you want to use the app, run the backend too.
