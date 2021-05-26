@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
 import TitleField from '../../base/title-field-input';
 import BodyPost from '../../base/post-body-field';
 import HashtagField from '../../base/hashtag-field-input';
@@ -13,17 +13,20 @@ interface NewPostProps {
 }
 type FormInputs = {
     Title: string;
-    Tags: [];
+    Tags: Array<string>;
     Description: string;
 };
 const NewPost = (props: NewPostProps) => {
     const { navigation, route } = props;
+    const [tags, setTags] = useState([]);
+    const [tagValue, setTagValue] = useState('');
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm<FormInputs>({ mode: 'onChange' });
     const onSubmit = (data: FormInputs) => {
+        console.log(tags);
         navigation.navigate('CreatePostNextStep', { data });
     };
     return (
@@ -42,12 +45,11 @@ const NewPost = (props: NewPostProps) => {
             <View style={styles.inputContainer}>
                 <Text style={styles.text}>{'Hashtags'}</Text>
                 <HashtagField
-                    name="Tags"
-                    placeholder="Post title"
-                    required={true}
-                    maxLength="100"
-                    errors={errors}
+                    tags={tags}
                     control={control}
+                    setTagValue={setTagValue}
+                    setTags={setTags}
+                    tagValue={tagValue}
                 />
             </View>
             <View style={styles.inputContainer}>
