@@ -31,6 +31,9 @@ const backgroundColor = {
     darkGray: {
         backgroundColor: '#a9a9a9',
     },
+    lightBlue: {
+        backgroundColor: '#00bbff',
+    },
 };
 
 const colors = {
