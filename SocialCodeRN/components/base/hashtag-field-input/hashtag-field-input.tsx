@@ -72,7 +72,7 @@ const HashtagField = (props: TitleFieldProps) => {
                         clearButtonMode={'always'}
                     />
                 )}
-                name={'hash'}
+                name={'Tags'}
                 defaultValue=""
             />
         </View>

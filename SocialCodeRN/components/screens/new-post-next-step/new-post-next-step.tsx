@@ -26,13 +26,14 @@ const NewPostNextStep = (props: NewPostNextStepProps) => {
     } = useForm<FormInputs>({ mode: 'onChange' });
     const onSubmit = async (data: FormInputs) => {
         let userData = JSON.parse(await AsyncStorage.getItem('userStorage'));
-        let userAuth = userData as UserData;
+        let userAuth = userData.value as UserData;
         data = {
             ...data,
             ...route.params.data,
             userId: userAuth.id,
             userToken: userAuth.token,
         };
+        console.log(data);
         await postService.setPost(data);
     };
 
