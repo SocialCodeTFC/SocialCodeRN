@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import TitleField from '../../base/title-field-input';
 import BodyPost from '../../base/post-body-field';
@@ -13,7 +13,7 @@ interface NewPostProps {
 }
 type FormInputs = {
     Title: string;
-    Tags: Array<string>;
+    Tags: [];
     Description: string;
 };
 const NewPost = (props: NewPostProps) => {
@@ -27,6 +27,7 @@ const NewPost = (props: NewPostProps) => {
     } = useForm<FormInputs>({ mode: 'onChange' });
     const onSubmit = (data: FormInputs) => {
         console.log(tags);
+        data = { ...data, Tags: tags };
         navigation.navigate('CreatePostNextStep', { data });
     };
     return (

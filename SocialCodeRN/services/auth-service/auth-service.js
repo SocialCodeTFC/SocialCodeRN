@@ -1,5 +1,5 @@
 let axios = require('axios');
-const URI_HTTP_BASEPATH = 'http://10.0.2.2:80';
+const URI_HTTP_BASEPATH = 'http://10.0.2.2:5002';
 const URI_HTTPS_BASEPATH = 'https://10.0.2.2:433';
 
 export const setAuthData = async (authData, storage) => {
@@ -8,12 +8,13 @@ export const setAuthData = async (authData, storage) => {
         FirstName: authData.name,
         LastName: authData.surname,
         Password: authData.password,
+        RepeatPassword: authData.repeatPassword,
         Email: authData.email,
     });
 
     let config = {
         method: 'post',
-        url: `${URI_HTTP_BASEPATH}/users/register`,
+        url: `${URI_HTTP_BASEPATH}/auth/register`,
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -46,7 +47,7 @@ export const getAuthData = async (authData, storage) => {
 
     let config = {
         method: 'post',
-        url: `${URI_HTTP_BASEPATH}/users/auth`,
+        url: `${URI_HTTP_BASEPATH}/auth/login`,
         headers: {
             'Content-Type': 'application/json',
         },

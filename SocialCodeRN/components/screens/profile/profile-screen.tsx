@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { authService } from '../../../services';
 import ProfileHeader from './components/profile-header';
 import TabBody from './components/profile-tab-body';
+import { styleTokens } from '../../../styles';
+import UserPosts from './components/UserPosts';
+import { styles } from './profile-screen.styles';
 type AuthServiceResponse = {
     id: String;
     email: String;
@@ -27,8 +30,8 @@ const ProfileScreen = () => {
 
     useEffect(() => {
         if (userAuth) {
-            authService.getUserById(userAuth).then(response => {
-                const data = response as AuthServiceResponse;
+            authService.getUserById(userAuth.value).then(response => {
+                const data = response.value as AuthServiceResponse;
                 setUserData({
                     id: data.id,
                     email: data.email,
@@ -36,7 +39,6 @@ const ProfileScreen = () => {
                     surname: data.lastName,
                     alias: data.userName,
                 });
-                console.log(response);
             });
         }
     }, [userAuth]);
@@ -59,10 +61,14 @@ const ProfileScreen = () => {
 
     return isLoading ? (
         <View>
+            <ActivityIndicator
+                size="large"
+                color={styleTokens.colors.mainViolet}
+            />
             <Text>{'Loading...'}</Text>
         </View>
     ) : (
-        <View>
+        <SafeAreaView style={styles.container}>
             <ProfileHeader userData={userData} />
             <View>
                 <TabBody
@@ -72,7 +78,8 @@ const ProfileScreen = () => {
                     onFocusSaved={onFocusSaved}
                 />
             </View>
-        </View>
+            <UserPosts userAuth={userAuth.value} />
+        </SafeAreaView>
     );
 };
 export default ProfileScreen;

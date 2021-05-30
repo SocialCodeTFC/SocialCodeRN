@@ -16,21 +16,21 @@ const TabBody = (props: TabBodyProps) => {
                 style={activeTab === 0 ? styles.tabsOnFocus : styles.tabs}
                 onPress={onFocusPosts}
             >
-                <Text style={styles.text}>Posts</Text>
+                <Text style={styles.text}>{'Posts'}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={activeTab === 1 ? styles.tabsOnFocus : styles.tabs}
                 onPress={onFocusComents}
             >
-                <Text style={styles.text}>Coments</Text>
+                <Text style={styles.text}>{'Coments'}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={activeTab === 2 ? styles.tabsOnFocus : styles.tabs}
                 onPress={onFocusSaved}
             >
-                <Text style={styles.text}>Saved</Text>
+                <Text style={styles.text}>{'Saved'}</Text>
             </TouchableOpacity>
         </View>
     );
