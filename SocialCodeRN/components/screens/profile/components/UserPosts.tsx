@@ -13,12 +13,13 @@ import PostItem from './PostItem';
 
 interface UserPostProps {
     userAuth: object;
+    navigation: any;
 }
 
 const UserPost = (props: UserPostProps) => {
     const [userPosts, setUserPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { userAuth } = props;
+    const { userAuth, navigation } = props;
     useEffect(() => {
         if (userAuth) {
             postService
@@ -32,9 +33,8 @@ const UserPost = (props: UserPostProps) => {
     }, []);
 
     useEffect(() => {
-        if (userPosts?.length) {
+        if (userPosts) {
             setIsLoading(false);
-            console.log(userPosts);
         }
     }, [userPosts]);
 
@@ -61,16 +61,18 @@ const UserPost = (props: UserPostProps) => {
     ) : (
         <FlatList
             data={userPosts}
-            initialNumToRender={userPosts.length}
+            initialNumToRender={userPosts?.length ? 10 : 0}
             keyExtractor={(_item, index) => `${index}`}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             onRefresh={reloadPosts}
             refreshing={isLoading}
             contentContainerStyle={styles.list}
+            ListEmptyComponent={<Text>{'You do not have posts'}</Text>}
             renderItem={({ item }) => (
                 <View>
                     <PostItem
+                        navigation={navigation}
                         title={item.title}
                         tags={item.tags}
                         description={item.description}

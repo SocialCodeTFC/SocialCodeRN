@@ -1,16 +1,28 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { styles } from './PostItem.styles';
 interface PostItemProps {
     title: string;
     tags?: Array<string>;
     description: string;
     date: Date | string;
+    navigation: any;
 }
 const PostItem = (props: PostItemProps) => {
-    const { title, tags, description, date } = props;
+    const { title, tags, description, date, navigation } = props;
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() =>
+                navigation.navigate('FullViewPost', {
+                    title,
+                    tags,
+                    description,
+                    date,
+                })
+            }
+        >
             <Text style={styles.title}>{title}</Text>
             {tags &&
                 tags.map((hashtags, index) =>
@@ -28,7 +40,7 @@ const PostItem = (props: PostItemProps) => {
                 )}
             <Text>{description}</Text>
             <Text>{date}</Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 export default PostItem;
