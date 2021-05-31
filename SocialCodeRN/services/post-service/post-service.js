@@ -1,5 +1,5 @@
 let axios = require('axios');
-const URI_HTTP_BASEPATH = 'http://10.0.2.2:5002';
+const URI_HTTP_BASEPATH = 'http://10.0.2.2:80';
 const URI_HTTPS_BASEPATH = 'https://10.0.2.2:433';
 
 export const setPost = postData => {

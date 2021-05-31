@@ -15,7 +15,7 @@ type AuthServiceResponse = {
     userName: String;
 };
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
     const [userAuth, setUserAuth] = useState(undefined);
     const [userData, setUserData] = useState(undefined);
     const [isLoading, setIsLoading] = useState(true);
@@ -30,8 +30,8 @@ const ProfileScreen = () => {
 
     useEffect(() => {
         if (userAuth) {
-            authService.getUserById(userAuth.value).then(response => {
-                const data = response.value as AuthServiceResponse;
+            authService.getUserById(userAuth, AsyncStorage).then(response => {
+                const data = response as AuthServiceResponse;
                 setUserData({
                     id: data.id,
                     email: data.email,
@@ -78,7 +78,7 @@ const ProfileScreen = () => {
                     onFocusSaved={onFocusSaved}
                 />
             </View>
-            <UserPosts userAuth={userAuth.value} />
+            <UserPosts userAuth={userAuth} navigation={navigation} />
         </SafeAreaView>
     );
 };

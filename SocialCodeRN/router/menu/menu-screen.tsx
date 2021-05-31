@@ -196,6 +196,31 @@ const DefaultNavigator = ({ navigation }) => {
                     ),
                 }}
             />
+            <Stack.Screen
+                name="FullViewPost"
+                component={NewPost}
+                options={{
+                    cardStyleInterpolator: forFade,
+                    title: '',
+                    headerStyle: {
+                        ...styleTokens.backgroundColor.mainViolet,
+                        height: 75,
+                    },
+                    headerTitleStyle: styles.header,
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                            style={styles.backButton}
+                        >
+                            <ArrowLeft
+                                stroke={styleTokens.colors.white}
+                                width={40}
+                                height={40}
+                            />
+                        </TouchableOpacity>
+                    ),
+                }}
+            />
         </Stack.Navigator>
     );
 };
