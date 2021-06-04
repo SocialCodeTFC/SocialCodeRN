@@ -31,7 +31,7 @@ export const setAuthData = async (authData, storage) => {
                 );
             };
             setStorage();
-            console.log(JSON.stringify(response.data.value));
+            console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
             console.log('error: ', error.response);
@@ -60,7 +60,7 @@ export const getAuthData = async (authData, storage) => {
             const setStorage = async () => {
                 await storage.setItem(
                     'userStorage',
-                    JSON.stringify(response.data.value),
+                    JSON.stringify(response.data),
                 );
             };
             setStorage();
@@ -86,7 +86,7 @@ export const getUserById = async (authData, storage) => {
 
     await axios(config)
         .then(function (response) {
-            userData = response.data.value;
+            userData = response.data;
         })
         .catch(function (error) {
             console.log(error);
@@ -100,7 +100,7 @@ export const getUserById = async (authData, storage) => {
 const refreshToken = async (authData, storage) => {
     console.log('refreshToken', authData);
     let data = JSON.stringify({
-        Id: authData.id,
+        UserID: authData.id,
         Username: authData.username,
         Token: authData.token,
         RefreshToken: authData.refreshToken,

@@ -36,6 +36,7 @@ const NewPostNextStep = (props: NewPostNextStepProps) => {
         };
         console.log(data);
         await postService.setPost(data);
+        navigation.navigate('Home');
     };
 
     return (
