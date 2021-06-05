@@ -13,144 +13,138 @@ import { ArrowRight, ArrowLeft } from 'react-native-feather';
 import { styleTokens } from '../../../styles';
 
 type FormInputs = {
-    password: string;
-    alias: string;
+  password: string;
+  alias: string;
 };
 
 const LoginScreen = ({ navigation }) => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormInputs>({ mode: 'onChange' });
-    const onSubmit = (data: FormInputs) => {
-        authService.getAuthData(data, AsyncStorage);
-        navigation.navigate('Home');
-    };
-    return (
-        <View style={styles.container}>
-            <View style={styles.fieldContainer}>
-                <Text style={styles.text}>{'Alias'}</Text>
-                <AliasField
-                    name={'alias'}
-                    errors={errors}
-                    control={control}
-                    placeholder={'@alias'}
-                    required={true}
-                    maxLength={15}
-                />
-            </View>
-            <View style={styles.fieldContainer}>
-                <Text style={styles.text}>{'Password'}</Text>
-                <PasswordField
-                    name={'password'}
-                    errors={errors}
-                    control={control}
-                    placeholder={'Password'}
-                />
-            </View>
-            <Text
-                onPress={() => navigation.navigate('Register')}
-                style={styles.link}
-            >
-                {'You do not have an account?\n\n Sign up!'}
-            </Text>
-            <TouchableOpacity
-                onPress={handleSubmit(onSubmit)}
-                style={styles.button}
-            >
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>{'Sign in!'}</Text>
-                    <ArrowRight
-                        stroke={styleTokens.colors.mainViolet}
-                        width={50}
-                        height={50}
-                    />
-                </View>
-            </TouchableOpacity>
-            <Button
-                onPress={() => {
-                    navigation.replace('Home');
-                }}
-                title={'home'}
-            />
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>({ mode: 'onChange' });
+  const onSubmit = (data: FormInputs) => {
+    authService.getAuthData(data, AsyncStorage);
+    navigation.navigate('Home');
+  };
+  return (
+    <View style={styles.container}>
+      <View style={styles.fieldContainer}>
+        <Text style={styles.text}>{'Alias'}</Text>
+        <AliasField
+          name={'alias'}
+          errors={errors}
+          control={control}
+          placeholder={'@alias'}
+          required={true}
+          maxLength={15}
+        />
+      </View>
+      <View style={styles.fieldContainer}>
+        <Text style={styles.text}>{'Password'}</Text>
+        <PasswordField
+          name={'password'}
+          errors={errors}
+          control={control}
+          placeholder={'Password'}
+        />
+      </View>
+      <Text onPress={() => navigation.navigate('Register')} style={styles.link}>
+        {'You do not have an account?\n\n Sign up!'}
+      </Text>
+      <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>{'Sign in!'}</Text>
+          <ArrowRight
+            stroke={styleTokens.colors.mainViolet}
+            width={50}
+            height={50}
+          />
         </View>
-    );
+      </TouchableOpacity>
+      <Button
+        onPress={() => {
+          navigation.replace('Home');
+        }}
+        title={'home'}
+      />
+    </View>
+  );
 };
 const Login = createStackNavigator();
 const LoginNavigator = ({ navigation }) => {
-    const forFade = ({ current, closing }) => ({
-        cardStyle: {
-            opacity: current.progress,
-        },
-    });
-    return (
-        <Login.Navigator mode="modal">
-            <Login.Screen
-                name="Sign in"
-                component={LoginScreen}
-                options={{
-                    cardStyleInterpolator: forFade,
-                    headerStyle: {
-                        ...styleTokens.backgroundColor.mainViolet,
-                        shadowColor: 'transparent',
-                    },
-                    headerTitleStyle: styles.headerTitleStyle,
-                }}
-            />
-            <Login.Screen
-                name="Register"
-                component={Register}
-                options={{
-                    headerTitle: 'Sign up',
-                    cardStyleInterpolator: forFade,
-                    headerStyle: {
-                        ...styleTokens.backgroundColor.mainViolet,
-                        shadowColor: 'transparent',
-                    },
-                    headerLeft: () => (
-                        <TouchableOpacity
-                            onPress={() => navigation.pop()}
-                            style={styles.backButton}
-                        >
-                            <ArrowLeft
-                                stroke={styleTokens.colors.white}
-                                width={40}
-                                height={40}
-                            />
-                        </TouchableOpacity>
-                    ),
+  const forFade = ({ current, closing }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
+  return (
+    <Login.Navigator mode="modal">
+      <Login.Screen
+        name="Sign in"
+        component={LoginScreen}
+        options={{
+          cardStyleInterpolator: forFade,
+          headerStyle: {
+            ...styleTokens.backgroundColor.mainViolet,
+            shadowColor: 'transparent',
+          },
+          headerTitleStyle: styles.headerTitleStyle,
+        }}
+      />
+      <Login.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerTitle: 'Sign up',
+          cardStyleInterpolator: forFade,
+          headerStyle: {
+            ...styleTokens.backgroundColor.mainViolet,
+            shadowColor: 'transparent',
+          },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.pop()}
+              style={styles.backButton}
+            >
+              <ArrowLeft
+                stroke={styleTokens.colors.white}
+                width={40}
+                height={40}
+              />
+            </TouchableOpacity>
+          ),
 
-                    headerTitleStyle: styles.headerTitleStyleWithArrow,
-                }}
-            />
-            <Login.Screen
-                name="NextStep"
-                options={{
-                    headerTitle: 'Sign up',
-                    cardStyleInterpolator: forFade,
-                    headerStyle: {
-                        ...styleTokens.backgroundColor.mainViolet,
-                        shadowColor: 'transparent',
-                    },
-                    headerLeft: () => (
-                        <TouchableOpacity
-                            onPress={() => navigation.pop()}
-                            style={styles.backButton}
-                        >
-                            <ArrowLeft
-                                stroke={styleTokens.colors.white}
-                                width={40}
-                                height={40}
-                            />
-                        </TouchableOpacity>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyleWithArrow,
-                }}
-                component={NextStep}
-            />
-        </Login.Navigator>
-    );
+          headerTitleStyle: styles.headerTitleStyleWithArrow,
+        }}
+      />
+      <Login.Screen
+        name="NextStep"
+        options={{
+          headerTitle: 'Sign up',
+          cardStyleInterpolator: forFade,
+          headerStyle: {
+            ...styleTokens.backgroundColor.mainViolet,
+            shadowColor: 'transparent',
+          },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.pop()}
+              style={styles.backButton}
+            >
+              <ArrowLeft
+                stroke={styleTokens.colors.white}
+                width={40}
+                height={40}
+              />
+            </TouchableOpacity>
+          ),
+          headerTitleStyle: styles.headerTitleStyleWithArrow,
+        }}
+        component={NextStep}
+      />
+    </Login.Navigator>
+  );
 };
 
 export default LoginNavigator;

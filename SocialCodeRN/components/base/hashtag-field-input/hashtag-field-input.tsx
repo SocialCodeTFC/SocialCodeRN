@@ -6,76 +6,71 @@ import { X } from 'react-native-feather';
 import { styleTokens } from '../../../styles';
 
 interface TitleFieldProps {
-    tags: any[];
-    control;
-    setTagValue: React.Dispatch<React.SetStateAction<string>>;
-    setTags: React.Dispatch<React.SetStateAction<any[]>>;
-    tagValue: string;
+  tags: any[];
+  control;
+  setTagValue: React.Dispatch<React.SetStateAction<string>>;
+  setTags: React.Dispatch<React.SetStateAction<any[]>>;
+  tagValue: string;
 }
 
 const HashtagField = (props: TitleFieldProps) => {
-    let { tags, control, setTagValue, setTags, tagValue } = props;
+  let { tags, control, setTagValue, setTags, tagValue } = props;
 
-    const deleteTags = position => {
-        const tagsFiltered = tags.filter((_item, index) => index !== position);
+  const deleteTags = position => {
+    const tagsFiltered = tags.filter((_item, index) => index !== position);
 
-        setTags(tagsFiltered);
-    };
-    return (
-        <View>
-            <View style={styles.tagsContainer}>
-                {tags.map((hashtags, index) =>
-                    hashtags ? (
-                        <View style={styles.tags} key={`${hashtags}+${index}`}>
-                            <View
-                                style={styles.textTags}
-                                key={`${index}-${hashtags}`}
-                            >
-                                <Text key={`${index}+${hashtags}`}>
-                                    {hashtags}
-                                </Text>
-                            </View>
-                            <TouchableOpacity
-                                key={`${index}+${index}`}
-                                onPress={() => {
-                                    deleteTags(index);
-                                }}
-                                style={styles.deleteButton}
-                            >
-                                <X
-                                    width={10}
-                                    height={10}
-                                    stroke={styleTokens.colors.darkGray}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    ) : (
-                        <></>
-                    ),
-                )}
+    setTags(tagsFiltered);
+  };
+  return (
+    <View>
+      <View style={styles.tagsContainer}>
+        {tags.map((hashtags, index) =>
+          hashtags ? (
+            <View style={styles.tags} key={`${hashtags}+${index}`}>
+              <View style={styles.textTags} key={`${index}-${hashtags}`}>
+                <Text key={`${index}+${hashtags}`}>{hashtags}</Text>
+              </View>
+              <TouchableOpacity
+                key={`${index}+${index}`}
+                onPress={() => {
+                  deleteTags(index);
+                }}
+                style={styles.deleteButton}
+              >
+                <X
+                  width={10}
+                  height={10}
+                  stroke={styleTokens.colors.darkGray}
+                />
+              </TouchableOpacity>
             </View>
-            <Controller
-                control={control as any}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        style={styles.input}
-                        onBlur={onBlur}
-                        onChangeText={value => {
-                            onChange(value);
-                            setTagValue(value);
-                        }}
-                        placeholder={'aaa'}
-                        value={value}
-                        onEndEditing={() => {
-                            tagValue !== '' ? setTags([...tags, tagValue]) : '';
-                        }}
-                        clearButtonMode={'always'}
-                    />
-                )}
-                name={'Tags'}
-                defaultValue=""
-            />
-        </View>
-    );
+          ) : (
+            <></>
+          ),
+        )}
+      </View>
+      <Controller
+        control={control as any}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={value => {
+              onChange(value);
+              setTagValue(value);
+            }}
+            placeholder={'aaa'}
+            value={value}
+            onEndEditing={() => {
+              tagValue !== '' ? setTags([...tags, tagValue]) : '';
+            }}
+            clearButtonMode={'always'}
+          />
+        )}
+        name={'Tags'}
+        defaultValue=""
+      />
+    </View>
+  );
 };
 export default HashtagField;
