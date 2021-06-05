@@ -74,7 +74,7 @@ export const getByTags = async (searchData, authData) => {
       console.log('error: ', error.response);
       return error.response;
     });
-  return posts;
+  return posts.items;
 };
 export default {
   setPost,

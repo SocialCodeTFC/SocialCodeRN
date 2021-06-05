@@ -29,9 +29,11 @@ const Home = (props: HomeProps) => {
     const getTags = JSON.parse(
       await AsyncStorage.getItem(`userTags${user.id}`),
     );
-    if (getTags) {
-      setUserTags(getTags);
-    }
+    try {
+      if (getTags) {
+        setUserTags(getTags);
+      }
+    } catch {}
   };
 
   useEffect(() => {
@@ -49,27 +51,18 @@ const Home = (props: HomeProps) => {
       postService
         .getByTags(userTags, user)
         .then(response => {
-          setTagPosts(response.items);
+          setTagPosts(response);
+          setIsLoading(false);
         })
         .catch(error => console.log(error));
     }
   }, [userTags]);
 
-  useEffect(() => {
-    if (tagPosts?.length) {
-      setIsLoading(false);
-    }
-  }, [tagPosts]);
-
   const reloadPosts = () => {
     getUserTags();
   };
 
-  return isLoading ? (
-    <View>
-      <ActivityIndicator size="large" color={styleTokens.colors.mainViolet} />
-    </View>
-  ) : (
+  return (
     <View style={styles.container}>
       <SafeAreaView>
         <FlatList
@@ -78,6 +71,7 @@ const Home = (props: HomeProps) => {
           keyExtractor={(_item, index) => `${index}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.container}
           onRefresh={reloadPosts}
           refreshing={isLoading}
           ListEmptyComponent={<Text>{'There is not posts here'}</Text>}

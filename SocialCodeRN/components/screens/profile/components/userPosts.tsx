@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import { postService } from '../../../../services';
 import { styleTokens } from '../../../../styles';
-import { styles } from './UserPosts.styles';
-import PostItem from './PostItem';
+import { styles } from './userPosts.styles';
+import PostItem from './postItem';
 
 interface UserPostProps {
   userAuth: object;

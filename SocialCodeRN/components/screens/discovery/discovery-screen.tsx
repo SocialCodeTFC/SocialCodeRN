@@ -10,9 +10,10 @@ import {
 import { useForm } from 'react-hook-form';
 import AsyncStorage from '@react-native-community/async-storage';
 import SearchBar from '../../base/search-bar';
-import { Search } from 'react-native-feather';
 import { styleTokens } from '../../../styles';
 import HashtagField from '../../base/hashtag-field-input';
+import { styles } from './discovery-screen.styles';
+import { X, Search } from 'react-native-feather';
 type FormInputs = {
   search: string;
 };
@@ -48,11 +49,8 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs | TagInput>({ mode: 'onChange' });
+
   const onSubmit = (data: FormInputs) => {};
-  const onAddTag = (data: TagInput) => {
-    data = { ...data, Tags: newTags };
-    saveUserTags(data);
-  };
 
   const setTags = async () => {
     const savedTags = JSON.parse(
@@ -83,67 +81,71 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
 
   const saveUserTags = async data => {
     setIsLoading(true);
-    if (newTags?.length) {
-      await AsyncStorage.setItem(
-        `userTags${user.id}`,
-        JSON.stringify([...userTags, ...data.Tags]),
-      );
-      setTags();
-    }
+    const tagsData = new Set([...userTags, data]);
+    await AsyncStorage.setItem(
+      `userTags${user.id}`,
+      JSON.stringify([...tagsData]),
+    );
+    setTags();
   };
 
   return (
-    <SafeAreaView>
-      <View>
-        <SearchBar
-          name="search"
-          errors={errors}
-          control={control}
-          placeholder="Search a tag!"
-        />
-        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-          <Search
-            stroke={styleTokens.colors.mainViolet}
-            width={16}
-            height={16}
-          />
-        </TouchableOpacity>
-      </View>
-      <Text>{'Favourite tags:'}</Text>
-      <View>
-        <HashtagField
-          tags={newTags}
-          control={control}
-          setTagValue={setTagValue}
-          setTags={setNewTags}
-          tagValue={tagValue}
-        />
-        <TouchableOpacity onPress={handleSubmit(onAddTag)}>
-          <Text>{'add tags!'}</Text>
-        </TouchableOpacity>
-      </View>
-      <FlatList
-        data={userTags}
-        initialNumToRender={5}
-        initialScrollIndex={0}
-        keyExtractor={(_item, index) => `${index}`}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        onRefresh={setTags}
-        refreshing={isLoading}
-        ListEmptyComponent={<Text>{'You do not have tags'}</Text>}
-        renderItem={({ item, index }) => (
-          <View>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text>{item}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => deleteUserTags(index)}>
-              <Text>{'delete tag'}</Text>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.header}>
+          <View style={styles.searchContainer}>
+            <SearchBar
+              name="search"
+              errors={errors}
+              control={control}
+              placeholder="Search a tag!"
+            />
+            <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+              <Search
+                stroke={styleTokens.colors.mainViolet}
+                width={20}
+                height={20}
+              />
             </TouchableOpacity>
           </View>
-        )}
-      />
-    </SafeAreaView>
+        </View>
+        <View style={styles.tagSubtitleContainer}>
+          <Text style={styles.subtitle}>{'Your favourite tags:'}</Text>
+        </View>
+        <View>
+          <HashtagField
+            tags={newTags}
+            control={control}
+            setTagValue={setTagValue}
+            setTags={setNewTags}
+            tagValue={tagValue}
+            doNotShowTags={true}
+            saveTags={saveUserTags}
+          />
+        </View>
+        <FlatList
+          data={userTags}
+          initialNumToRender={5}
+          initialScrollIndex={0}
+          keyExtractor={(_item, index) => `${index}`}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          onRefresh={setTags}
+          refreshing={isLoading}
+          ListEmptyComponent={<Text>{'You do not have tags'}</Text>}
+          renderItem={({ item, index }) => (
+            <View style={styles.tagsContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.text}>{item}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => deleteUserTags(index)}>
+                <X stroke={styleTokens.colors.white} width={16} height={16} />
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      </SafeAreaView>
+    </View>
   );
 };
 export default Discovery;
