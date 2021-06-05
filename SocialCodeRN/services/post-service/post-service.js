@@ -50,7 +50,34 @@ export const getAllUserPosts = async authData => {
     });
   return userPosts;
 };
+export const getByTags = async (searchData, authData) => {
+  console.log(searchData);
+  let posts;
+  let data = {
+    Tags: searchData,
+  };
+  let config = {
+    method: 'post',
+    url: `${URI_HTTP_BASEPATH}/posts/getByTags`,
+    headers: {
+      Authorization: `Bearer ${authData.token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    data: data,
+  };
+  await axios(config)
+    .then(function async(response) {
+      posts = response.data;
+    })
+    .catch(function (error) {
+      console.log('error: ', error.response);
+      return error.response;
+    });
+  return posts;
+};
 export default {
   setPost,
   getAllUserPosts,
+  getByTags,
 };
