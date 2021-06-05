@@ -5,14 +5,16 @@ import { authService } from '../../../services';
 import ProfileHeader from './components/profile-header';
 import TabBody from './components/profile-tab-body';
 import { styleTokens } from '../../../styles';
-import UserPosts from './components/UserPosts';
+import UserPosts from './components/userPosts';
 import { styles } from './profile-screen.styles';
+import Comments from './components/comments';
+import SavedPosts from '../../base/saved-posts';
 type AuthServiceResponse = {
   id: String;
   email: String;
   firstName: String;
   lastName: String;
-  userName: String;
+  username: String;
 };
 
 const ProfileScreen = ({ navigation }) => {
@@ -37,7 +39,7 @@ const ProfileScreen = ({ navigation }) => {
           email: data.email,
           name: data.firstName,
           surname: data.lastName,
-          alias: data.userName,
+          alias: data.username,
         });
       });
     }
@@ -46,6 +48,10 @@ const ProfileScreen = ({ navigation }) => {
   useEffect(() => {
     if (userData) {
       setIsLoading(false);
+    } else {
+      setTimeout(() => {
+        getUserData();
+      }, 3000);
     }
   }, [userData]);
 
@@ -66,7 +72,7 @@ const ProfileScreen = ({ navigation }) => {
     </View>
   ) : (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader userData={userData} />
+      <ProfileHeader userData={userData} navigation={navigation} />
       <View>
         <TabBody
           activeTab={activeTab}
@@ -75,7 +81,11 @@ const ProfileScreen = ({ navigation }) => {
           onFocusSaved={onFocusSaved}
         />
       </View>
-      <UserPosts userAuth={userAuth} navigation={navigation} />
+      {activeTab == 0 && (
+        <UserPosts userAuth={userAuth} navigation={navigation} />
+      )}
+      {activeTab == 1 && <Comments />}
+      {activeTab == 2 && <SavedPosts />}
     </SafeAreaView>
   );
 };

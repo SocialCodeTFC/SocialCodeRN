@@ -3,7 +3,7 @@ import { styleTokens, textStylesEM } from '../../../../styles';
 import Constants from 'expo-constants';
 
 export const styles = StyleSheet.create({
-    list: {
-        padding: 12,
-    },
+  list: {
+    padding: 12,
+  },
 });

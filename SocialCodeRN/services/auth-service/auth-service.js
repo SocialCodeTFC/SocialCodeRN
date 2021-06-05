@@ -3,6 +3,7 @@ const URI_HTTP_BASEPATH = 'http://10.0.2.2:80';
 const URI_HTTPS_BASEPATH = 'https://10.0.2.2:433';
 
 export const setAuthData = async (authData, storage) => {
+  let responseStatus;
   let data = JSON.stringify({
     Username: authData.alias,
     FirstName: authData.name,
@@ -28,12 +29,15 @@ export const setAuthData = async (authData, storage) => {
         await storage.setItem('userStorage', JSON.stringify(response.data));
       };
       setStorage();
+      responseStatus = response.status;
       console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log('error: ', error.response);
+      responseStatus = error.response.status;
       return error.response;
     });
+  return responseStatus;
 };
 
 export const getAuthData = async (authData, storage) => {

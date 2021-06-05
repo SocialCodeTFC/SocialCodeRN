@@ -44,7 +44,7 @@ const NewPost = (props: NewPostProps) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.text}>{'Hashtags'}</Text>
+        <Text style={styles.text}>{'Tags'}</Text>
         <HashtagField
           tags={tags}
           control={control}
