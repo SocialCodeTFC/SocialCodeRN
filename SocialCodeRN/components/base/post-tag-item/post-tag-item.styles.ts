@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { styleTokens, textStylesEM } from '../../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
   container: {

@@ -25,7 +25,7 @@ interface DiscoveryProps {
 }
 
 const Discovery = ({ navigation }: DiscoveryProps) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(undefined);
   const [userTags, setUserTags] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newTags, setNewTags] = useState([]);
@@ -59,6 +59,8 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
       await AsyncStorage.getItem(`userTags${user.id}`),
     );
     if (savedTags) {
+      console.log(savedTags);
+
       setUserTags([...savedTags]);
     } else {
       setUserTags([]);
@@ -72,6 +74,7 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
       (_item, index) => index !== indexDelete,
     );
     setUserTags(filteredTags);
+    console.log(user);
     await AsyncStorage.setItem(
       `userTags${user.id}`,
       JSON.stringify(filteredTags),
@@ -81,11 +84,11 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
   const saveUserTags = async data => {
     setIsLoading(true);
     if (newTags?.length) {
-      setUserTags([...userTags, ...data.Tags]);
       await AsyncStorage.setItem(
         `userTags${user.id}`,
         JSON.stringify([...userTags, ...data.Tags]),
-      ).then(() => setIsLoading(false));
+      );
+      setTags();
     }
   };
 
