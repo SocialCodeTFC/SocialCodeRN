@@ -12,6 +12,7 @@ import Profile from '../../components/screens/profile';
 import NewPost from '../../components/screens/new-post';
 import NewPostNextStep from '../../components/screens/new-post-next-step';
 import Icon from '../../components/base/icon';
+import Discovery from '../../components/screens/discovery';
 import { Menu, User, ArrowLeft } from 'react-native-feather';
 import { styleTokens } from '../../styles';
 
@@ -96,7 +97,7 @@ const TabNavigator = ({ navigation }) => {
       }}
     >
       <Tabs.Screen name="Home" component={StackTabsNavigator} />
-      <Tabs.Screen name="Login" component={Login} />
+      <Tabs.Screen name="Discovery" component={Discovery} />
     </Tabs.Navigator>
   );
 };
