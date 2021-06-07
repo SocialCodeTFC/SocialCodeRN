@@ -1,20 +1,27 @@
-import React from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { DevSettings, View } from 'react-native';
+import { ArrowLeft, Menu, User } from 'react-native-feather';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { styles } from './menu-screen.styles';
-import { View } from 'react-native';
-import FullViewPost from '../../components/screens/full-view-post';
-import HomeScreen from '../../components/screens/home';
-import Login from '../../components/screens/login-screen';
-import Profile from '../../components/screens/profile';
-import NewPost from '../../components/screens/new-post';
-import NewPostNextStep from '../../components/screens/new-post-next-step';
 import Icon from '../../components/base/icon';
 import Discovery from '../../components/screens/discovery';
-import { Menu, User, ArrowLeft } from 'react-native-feather';
+import FullViewPost from '../../components/screens/full-view-post';
+import HomeScreen from '../../components/screens/home';
+import NewPost from '../../components/screens/new-post';
+import NewPostNextStep from '../../components/screens/new-post-next-step';
+import Profile from '../../components/screens/profile';
+import SearchScreen from '../../components/screens/search-screen';
 import { styleTokens } from '../../styles';
+import { styles } from './menu-screen.styles';
+
+interface MenuProps {
+  username?: string;
+  route?: any;
+  navigation?: any;
+}
 
 const forFade = ({ current, closing }) => ({
   cardStyle: {
@@ -189,9 +196,9 @@ const DefaultNavigator = ({ navigation }) => {
       <Stack.Screen
         name="FullViewPost"
         component={FullViewPost}
-        options={{
+        options={({ route }) => ({
           cardStyleInterpolator: forFade,
-          title: '',
+          title: route.params.title,
           headerStyle: {
             ...styleTokens.backgroundColor.mainViolet,
             height: 75,
@@ -209,18 +216,63 @@ const DefaultNavigator = ({ navigation }) => {
               />
             </TouchableOpacity>
           ),
-        }}
+        })}
+      />
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={({ route }) => ({
+          cardStyleInterpolator: forFade,
+          title: `Results for: '${route.params.item}'`,
+          headerStyle: {
+            ...styleTokens.backgroundColor.mainViolet,
+            height: 75,
+          },
+          headerTitleStyle: styles.header,
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.backButton}
+            >
+              <ArrowLeft
+                stroke={styleTokens.colors.white}
+                width={40}
+                height={40}
+              />
+            </TouchableOpacity>
+          ),
+        })}
       />
     </Stack.Navigator>
   );
 };
 
+const signOut = async () => {
+  await AsyncStorage.removeItem('userStorage');
+  DevSettings.reload();
+};
+const CloseSession = () => {
+  signOut();
+  return null;
+};
+
 const Drawer = createDrawerNavigator();
 
-function MenuDrawer() {
+function MenuDrawer({ username, navigation, route }: MenuProps) {
+  const alias = () => {
+    let userAlias;
+    if (username) {
+      userAlias = username;
+    } else {
+      userAlias = route.params.username;
+    }
+    return userAlias;
+  };
   return (
     <Drawer.Navigator initialRouteName={'Home'}>
+      <Drawer.Screen name={alias()} component={Profile} />
       <Drawer.Screen name="Home" component={DefaultNavigator} />
+      <Drawer.Screen name="Sign out" component={CloseSession} />
     </Drawer.Navigator>
   );
 }

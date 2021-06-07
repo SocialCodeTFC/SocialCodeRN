@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     marginVertical: 8,
   },
   title: {
-    ...styleTokens.fontColor.black,
+    ...styleTokens.fontColor.dark,
     ...textStylesEM.font.regular,
     ...textStylesEM.size.large,
     textAlign: 'left',

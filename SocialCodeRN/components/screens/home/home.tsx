@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-} from 'react-native';
+import { View, Text, FlatList, SafeAreaView } from 'react-native';
 import PostButton from './components/new-post-button';
 import { styles } from './home.styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import { postService } from '../../../services';
 import PostTagItem from '../../base/post-tag-item';
-import { styleTokens } from '../../../styles';
 interface HomeProps {
   navigation: any;
 }
@@ -23,10 +16,17 @@ const Home = (props: HomeProps) => {
   const [tagPosts, setTagPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const getUserData = async () => {
-    setUser(JSON.parse(await AsyncStorage.getItem('userStorage')));
+    const getUser = await JSON.parse(await AsyncStorage.getItem('userStorage'));
+    try {
+      if (getUser) {
+        console.log(getUser);
+        setUser(getUser);
+        getUserTags(getUser);
+      }
+    } catch {}
   };
-  const getUserTags = async () => {
-    const getTags = JSON.parse(
+  const getUserTags = async user => {
+    const getTags = await JSON.parse(
       await AsyncStorage.getItem(`userTags${user.id}`),
     );
     try {
@@ -41,63 +41,57 @@ const Home = (props: HomeProps) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      getUserTags();
-    }
-  }, [user]);
-
-  useEffect(() => {
     if (userTags?.length) {
+      console.log(userTags);
       postService
         .getByTags(userTags, user)
         .then(response => {
           setTagPosts(response);
-          setIsLoading(false);
         })
         .catch(error => console.log(error));
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [userTags]);
 
   const reloadPosts = () => {
-    getUserTags();
+    getUserTags(user);
   };
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <FlatList
-          data={tagPosts}
-          initialNumToRender={20}
-          keyExtractor={(_item, index) => `${index}`}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.container}
-          onRefresh={reloadPosts}
-          refreshing={isLoading}
-          ListEmptyComponent={<Text>{'There is not posts here'}</Text>}
-          renderItem={({ item }) => (
-            <View>
-              <PostTagItem
-                navigation={navigation}
-                title={item.title}
-                tags={item.tags}
-                description={item.description}
-                date={item.timestamp}
-                code={item.code}
-                authorUsername={item.authorUsername}
-                authorName={item.authorName}
-                comments={item.comments}
-                isFree={item.isFree}
-                price={item.price}
-              />
-            </View>
-          )}
-        />
-      </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={tagPosts}
+        initialNumToRender={20}
+        keyExtractor={(_item, index) => `${index}`}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        onRefresh={reloadPosts}
+        refreshing={isLoading}
+        ListEmptyComponent={<Text>{'There is not posts here'}</Text>}
+        renderItem={({ item }) => (
+          <View>
+            <PostTagItem
+              navigation={navigation}
+              title={item.title}
+              tags={item.tags}
+              description={item.description}
+              date={item.timestamp}
+              code={item.code}
+              authorUsername={item.authorUsername}
+              authorName={item.authorName}
+              comments={item.comments}
+              isFree={item.isFree}
+              price={item.price}
+            />
+          </View>
+        )}
+      />
       <View style={styles.containerButton}>
         <PostButton navigation={navigation} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default Home;

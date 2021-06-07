@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { authService } from '../../../services';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,17 +18,29 @@ type FormInputs = {
 };
 
 const LoginScreen = ({ navigation }) => {
+  const [errorResponse, setErrorResponse] = useState(false);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>({ mode: 'onChange' });
   const onSubmit = (data: FormInputs) => {
-    authService.getAuthData(data, AsyncStorage);
-    navigation.navigate('Home');
+    authService.getAuthData(data, AsyncStorage).then(response => {
+      if (response === 200) {
+        navigation.replace('Home', { username: data.alias });
+      } else {
+        setErrorResponse(true);
+      }
+    });
   };
   return (
     <View style={styles.container}>
+      {errorResponse && (
+        <Text style={styles.errorText}>
+          {'There was an error, please, try again'}
+        </Text>
+      )}
       <View style={styles.fieldContainer}>
         <Text style={styles.text}>{'Alias'}</Text>
         <AliasField
@@ -62,12 +74,6 @@ const LoginScreen = ({ navigation }) => {
           />
         </View>
       </TouchableOpacity>
-      <Button
-        onPress={() => {
-          navigation.replace('Home');
-        }}
-        title={'home'}
-      />
     </View>
   );
 };

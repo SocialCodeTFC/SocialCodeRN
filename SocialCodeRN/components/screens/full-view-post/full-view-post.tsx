@@ -8,6 +8,7 @@ interface FullViewPostProps {
 
 const FullViewPost = (props: FullViewPostProps) => {
   const { route, navigation } = props;
+  console.log(route.params);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.postContainer}>

@@ -12,6 +12,5 @@ export const styles = StyleSheet.create({
     ...styleTokens.backgroundColor.white,
     width: '100%',
     height: '100%',
-    padding: 10,
   },
 });

@@ -1,17 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { styleTokens, textStylesEM } from '../../../../styles';
+import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    padding: 10,
-    borderBottomColor: styleTokens.colors.mainViolet,
-    borderBottomWidth: 1,
+    flex: 0.75,
   },
-  title: {
+  text: {
     ...textStylesEM.font.regular,
     ...textStylesEM.size.default,
     ...styleTokens.fontColor.dark,
-    marginBottom: 4,
   },
 });
