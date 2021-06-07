@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   text: {
     ...textStylesEM.font.regular,
     ...textStylesEM.size.large,
-    ...styleTokens.fontColor.black,
+    ...styleTokens.fontColor.dark,
     margin: 10,
   },
   image: {

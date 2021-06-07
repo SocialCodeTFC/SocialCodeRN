@@ -41,7 +41,7 @@ export const setAuthData = async (authData, storage) => {
 };
 
 export const getAuthData = async (authData, storage) => {
-  console.log(authData);
+  let responseStatus;
   let data = JSON.stringify({
     Username: authData.alias,
     Password: authData.password,
@@ -62,16 +62,17 @@ export const getAuthData = async (authData, storage) => {
         await storage.setItem('userStorage', JSON.stringify(response.data));
       };
       setStorage();
+      responseStatus = response.status;
       console.log(JSON.stringify(response));
     })
     .catch(function (error) {
-      console.log(error);
+      console.log('error: ', error);
+      responseStatus = error.response.status;
     });
+  return responseStatus;
 };
 
 export const getUserById = async (authData, storage) => {
-  console.log('getUserById', authData);
-
   let userData;
   let config = {
     method: 'get',
@@ -89,14 +90,16 @@ export const getUserById = async (authData, storage) => {
     .catch(function (error) {
       console.log(error);
       if (error == 'Error: Request failed with status code 401') {
-        return refreshToken(authData, storage);
+        let refreshData = refreshToken(authData, storage).then(tokenResponse =>
+          getUserById(tokenResponse),
+        );
       }
     });
   return userData;
 };
 
 const refreshToken = async (authData, storage) => {
-  console.log('refreshToken', authData);
+  let tokenResponse;
   let data = JSON.stringify({
     UserID: authData.id,
     Username: authData.username,
@@ -120,8 +123,7 @@ const refreshToken = async (authData, storage) => {
         await storage.setItem('userStorage', JSON.stringify(response.data));
       };
       setStorage();
-      console.log('pase', response.data);
-      getUserById(response.data);
+      tokenResponse = response.data;
     })
     .catch(function (error) {
       console.log('error: ', error.response);
@@ -132,4 +134,5 @@ export default {
   setAuthData,
   getAuthData,
   getUserById,
+  refreshToken,
 };

@@ -31,7 +31,7 @@ const NextStep = (props: NextStepProps) => {
     data = { ...route.params.data, ...data };
     authService.setAuthData(data, AsyncStorage).then(response => {
       if (response === 201) {
-        navigation.navigate('Home');
+        navigation.replace('Home', { username: data.alias });
       } else {
         setErrorResponse(true);
       }
@@ -40,7 +40,11 @@ const NextStep = (props: NextStepProps) => {
 
   return (
     <View style={styles.container}>
-      {errorResponse && <Text>{'There was an error, please, try again'}</Text>}
+      {errorResponse && (
+        <Text style={styles.errorText}>
+          {'There was an error, please, try again'}
+        </Text>
+      )}
       <View style={styles.fieldContainer}>
         <Text style={styles.text}>Name</Text>
         <NameField

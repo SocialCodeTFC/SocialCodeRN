@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   title: {
     ...textStylesEM.font.regular,
     ...textStylesEM.size.default,
-    ...styleTokens.fontColor.black,
+    ...styleTokens.fontColor.dark,
     marginBottom: 4,
   },
 });

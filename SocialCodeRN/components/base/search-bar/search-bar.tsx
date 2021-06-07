@@ -1,6 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { View, TextInput } from 'react-native';
+import { styles } from './search-bar.styles';
 
 interface SearchProps {
   control: any;
@@ -13,11 +14,12 @@ const Search = (props: SearchProps) => {
   const { control, errors, name, placeholder } = props;
 
   return (
-    <View>
+    <View style={styles.container}>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
+            style={styles.text}
             onBlur={onBlur}
             onChangeText={value => onChange(value)}
             placeholder={placeholder}

@@ -51,7 +51,6 @@ export const getAllUserPosts = async authData => {
   return userPosts;
 };
 export const getByTags = async (searchData, authData) => {
-  console.log(searchData);
   let posts;
   let data = {
     Tags: searchData,

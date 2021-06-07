@@ -50,7 +50,9 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
     formState: { errors },
   } = useForm<FormInputs | TagInput>({ mode: 'onChange' });
 
-  const onSubmit = (data: FormInputs) => {};
+  const onSubmit = (data: FormInputs) => {
+    navigation.navigate('Search', { item: data.search, user });
+  };
 
   const setTags = async () => {
     const savedTags = JSON.parse(
@@ -135,7 +137,9 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
           ListEmptyComponent={<Text>{'You do not have tags'}</Text>}
           renderItem={({ item, index }) => (
             <View style={styles.tagsContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Search', { item, user })}
+              >
                 <Text style={styles.text}>{item}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => deleteUserTags(index)}>
