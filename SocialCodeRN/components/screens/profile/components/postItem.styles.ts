@@ -14,4 +14,14 @@ export const styles = StyleSheet.create({
     ...styleTokens.fontColor.dark,
     marginBottom: 4,
   },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  tags: {
+    ...styleTokens.fontColor.mainViolet,
+    ...textStylesEM.font.regular,
+    ...textStylesEM.size.small,
+    margin: 5,
+  },
 });

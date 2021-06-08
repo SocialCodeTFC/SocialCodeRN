@@ -44,18 +44,22 @@ const PostItem = (props: PostItemProps) => {
       }
     >
       <Text style={styles.title}>{title}</Text>
-      {tags &&
-        tags.map((hashtags, index) =>
-          hashtags ? (
-            <View key={`${hashtags}+${index}`}>
-              <View key={`${index}-${hashtags}`}>
-                <Text key={`${index}+${hashtags}`}>{hashtags}</Text>
+      <View style={styles.tagsContainer}>
+        {tags &&
+          tags.map((hashtags, index) =>
+            hashtags ? (
+              <View key={`${hashtags}+${index}`}>
+                <View key={`${index}-${hashtags}`}>
+                  <Text style={styles.tags} key={`${index}+${hashtags}`}>
+                    {hashtags}
+                  </Text>
+                </View>
               </View>
-            </View>
-          ) : (
-            <></>
-          ),
-        )}
+            ) : (
+              <></>
+            ),
+          )}
+      </View>
       <Text>{description}</Text>
       <Text>{date}</Text>
     </TouchableOpacity>
