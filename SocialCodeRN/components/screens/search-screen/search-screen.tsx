@@ -41,7 +41,6 @@ const SearchScreen = ({ navigation, route }: SearchScreenProps) => {
           keyExtractor={(_item, index) => `${index}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.container}
           onRefresh={reloadPosts}
           refreshing={isLoading}
           ListEmptyComponent={<Text>{'There is not posts here'}</Text>}
