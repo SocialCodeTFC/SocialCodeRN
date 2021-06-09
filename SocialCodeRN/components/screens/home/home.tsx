@@ -49,6 +49,8 @@ const Home = (props: HomeProps) => {
           setTagPosts(response);
         })
         .catch(error => console.log(error));
+    } else {
+      setTagPosts([]);
     }
     setTimeout(() => {
       setIsLoading(false);
