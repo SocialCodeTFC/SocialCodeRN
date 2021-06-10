@@ -134,7 +134,9 @@ const Discovery = ({ navigation }: DiscoveryProps) => {
           showsHorizontalScrollIndicator={false}
           onRefresh={setTags}
           refreshing={isLoading}
-          ListEmptyComponent={<Text>{'You do not have tags'}</Text>}
+          ListEmptyComponent={
+            <Text style={styles.emptyList}>{'You do not have tags'}</Text>
+          }
           renderItem={({ item, index }) => (
             <View style={styles.tagsContainer}>
               <TouchableOpacity

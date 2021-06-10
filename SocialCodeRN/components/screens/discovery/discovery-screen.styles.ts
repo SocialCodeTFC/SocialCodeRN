@@ -47,4 +47,9 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: styleTokens.colors.black,
   },
+  emptyList: {
+    ...textStylesEM.font.regular,
+    ...textStylesEM.size.small,
+    textAlign: 'center',
+  },
 });
