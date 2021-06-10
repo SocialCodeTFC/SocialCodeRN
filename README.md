@@ -7,6 +7,7 @@
 * JAVA
 * Npm 16.1.0
 * Visual Studio Code
+* Android Studio
 
 **Set up**  
 
