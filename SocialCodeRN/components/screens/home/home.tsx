@@ -47,8 +47,11 @@ const Home = (props: HomeProps) => {
         .getByTags(userTags, user)
         .then(response => {
           setTagPosts(response);
+          console.log(response);
         })
         .catch(error => console.log(error));
+    } else {
+      setTagPosts([]);
     }
     setTimeout(() => {
       setIsLoading(false);
@@ -69,7 +72,7 @@ const Home = (props: HomeProps) => {
         showsVerticalScrollIndicator={false}
         onRefresh={reloadPosts}
         refreshing={isLoading}
-        ListEmptyComponent={<Text>{'There is not posts here'}</Text>}
+        ListEmptyComponent={<Text>{'There are no posts here'}</Text>}
         renderItem={({ item }) => (
           <View>
             <PostTagItem
@@ -84,6 +87,8 @@ const Home = (props: HomeProps) => {
               comments={item.comments}
               isFree={item.isFree}
               price={item.price}
+              id={item.id}
+              user={user}
             />
           </View>
         )}

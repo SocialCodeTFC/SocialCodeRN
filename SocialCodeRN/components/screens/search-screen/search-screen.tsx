@@ -43,7 +43,7 @@ const SearchScreen = ({ navigation, route }: SearchScreenProps) => {
           showsVerticalScrollIndicator={false}
           onRefresh={reloadPosts}
           refreshing={isLoading}
-          ListEmptyComponent={<Text>{'There is not posts here'}</Text>}
+          ListEmptyComponent={<Text>{'There are no posts here'}</Text>}
           renderItem={({ item }) => (
             <View>
               <PostTagItem
@@ -58,6 +58,8 @@ const SearchScreen = ({ navigation, route }: SearchScreenProps) => {
                 comments={item.comments}
                 isFree={item.isFree}
                 price={item.price}
+                id={item.id}
+                user={route.params.user}
               />
             </View>
           )}

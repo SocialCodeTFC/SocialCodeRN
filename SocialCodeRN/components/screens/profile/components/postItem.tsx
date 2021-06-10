@@ -14,6 +14,8 @@ interface PostItemProps {
   comments?: string;
   isFree: boolean;
   price: number;
+  id: string;
+  user: object;
 }
 const PostItem = (props: PostItemProps) => {
   const {
@@ -26,6 +28,8 @@ const PostItem = (props: PostItemProps) => {
     authorUsername,
     authorName,
     comments,
+    user,
+    id,
   } = props;
   return (
     <TouchableOpacity
@@ -40,6 +44,8 @@ const PostItem = (props: PostItemProps) => {
           authorUsername,
           authorName,
           comments,
+          user,
+          id,
         })
       }
     >

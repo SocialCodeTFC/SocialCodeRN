@@ -3,14 +3,13 @@ import { styleTokens, textStylesEM } from '../../../styles';
 
 export const styles = StyleSheet.create({
   input: {
-    ...textStylesEM.font.regular,
-    ...textStylesEM.size.default,
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderColor: styleTokens.colors.darkGray,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
     ...styleTokens.backgroundColor.white,
-    borderColor: styleTokens.colors.black,
-    borderWidth: 1,
-    margin: 10,
-    borderRadius: 10,
-    padding: 12,
   },
 
   textTags: {
@@ -69,6 +68,7 @@ export const styles = StyleSheet.create({
   },
   codeContainer: {
     backgroundColor: 'rgba(225, 225, 225, 0.3)',
+    marginBottom: 10,
   },
   subtitle: {
     marginTop: 14,
@@ -80,5 +80,16 @@ export const styles = StyleSheet.create({
   code: {
     ...textStylesEM.font.regular,
     ...textStylesEM.size.small,
+    margin: 10,
+  },
+
+  ctaButton: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    flex: 0.2,
+  },
+  commentsContainer: {
+    marginBottom: 40,
   },
 });

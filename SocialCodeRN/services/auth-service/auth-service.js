@@ -73,7 +73,9 @@ export const getAuthData = async (authData, storage) => {
 };
 
 export const getUserById = async (authData, storage) => {
+  console.log(authData);
   let userData;
+
   let config = {
     method: 'get',
     url: `${URI_HTTP_BASEPATH}/users/${authData.id}`,
@@ -90,11 +92,12 @@ export const getUserById = async (authData, storage) => {
     .catch(function (error) {
       console.log(error);
       if (error == 'Error: Request failed with status code 401') {
-        let refreshData = refreshToken(authData, storage).then(tokenResponse =>
-          getUserById(tokenResponse),
-        );
+        refreshToken(authData, storage).then(tokenResponse => {
+          getUserById(tokenResponse);
+        });
       }
     });
+
   return userData;
 };
 
@@ -126,9 +129,17 @@ const refreshToken = async (authData, storage) => {
       tokenResponse = response.data;
     })
     .catch(function (error) {
-      console.log('error: ', error.response);
-      return error.response;
+      console.log('error: ', error.response.status);
+      const setStorage = async () => {
+        await storage.setItem(
+          'userStorage',
+          JSON.stringify(error.response.status),
+        );
+      };
+      setStorage();
+      tokenResponse = error.response.status;
     });
+  return tokenResponse;
 };
 export default {
   setAuthData,
