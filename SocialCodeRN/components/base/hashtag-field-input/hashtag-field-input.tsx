@@ -74,13 +74,13 @@ const HashtagField = (props: TitleFieldProps) => {
             placeholder={'Add a new tag!'}
             value={value}
             onEndEditing={() => {
-              if (tagValue !== '') {
+              if (tagValue !== '' && value !== '') {
                 setTags([...tags, tagValue]);
                 if (doNotShowTags == true) {
                   saveTags(tagValue);
                 }
               }
-              onChange('');
+              onChange((value = ''));
             }}
           />
         )}
