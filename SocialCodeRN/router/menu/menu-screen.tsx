@@ -247,6 +247,37 @@ const DefaultNavigator = ({ navigation }) => {
   );
 };
 
+const ProfileNavigation = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          cardStyleInterpolator: forFade,
+          headerStyle: {
+            ...styleTokens.backgroundColor.mainViolet,
+            height: 75,
+          },
+          headerTitleStyle: styles.header,
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.backButton}
+            >
+              <ArrowLeft
+                stroke={styleTokens.colors.white}
+                width={40}
+                height={40}
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const signOut = async () => {
   await AsyncStorage.removeItem('userStorage');
   DevSettings.reload();
@@ -270,7 +301,7 @@ function MenuDrawer({ username, navigation, route }: MenuProps) {
   };
   return (
     <Drawer.Navigator initialRouteName={'Home'}>
-      <Drawer.Screen name={alias()} component={Profile} />
+      <Drawer.Screen name={alias()} component={ProfileNavigation} />
       <Drawer.Screen name="Home" component={DefaultNavigator} />
       <Drawer.Screen name="Sign out" component={CloseSession} />
     </Drawer.Navigator>
