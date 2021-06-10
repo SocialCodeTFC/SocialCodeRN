@@ -8,6 +8,7 @@
 * Npm 16.1.0
 * Visual Studio Code
 * Android Studio
+* Nodejs
 
 **Set up**  
 
