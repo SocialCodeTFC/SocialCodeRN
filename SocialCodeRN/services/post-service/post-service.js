@@ -22,14 +22,13 @@ export const setPost = postData => {
     data: data,
   };
   axios(config)
-    .then(function (res) {
-      console.log(res);
-    })
+    .then(function (res) {})
     .catch(function (error) {
       console.log('error: ', error.response);
       return error.response;
     });
 };
+
 export const getAllUserPosts = async authData => {
   let userPosts;
   let config = {
@@ -50,6 +49,7 @@ export const getAllUserPosts = async authData => {
     });
   return userPosts;
 };
+
 export const getByTags = async (searchData, authData) => {
   let posts;
   let data = {
@@ -57,7 +57,8 @@ export const getByTags = async (searchData, authData) => {
   };
   let config = {
     method: 'post',
-    url: `${URI_HTTP_BASEPATH}/posts/getByTags`,
+    url: `${URI_HTTP_BASEPATH}/posts/getByTags?limit=10&offset=0
+    `,
     headers: {
       Authorization: `Bearer ${authData.token}`,
       'Content-Type': 'application/json',
@@ -75,8 +76,80 @@ export const getByTags = async (searchData, authData) => {
     });
   return posts.items;
 };
+
+export const addComment = async commentData => {
+  let comments;
+  let data = {
+    Content: commentData.comment,
+    PostId: commentData.postId,
+    Username: commentData.username,
+  };
+  let config = {
+    method: 'post',
+    url: `${URI_HTTP_BASEPATH}/comments`,
+    headers: {
+      Authorization: `Bearer ${commentData.token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    data: data,
+  };
+  await axios(config)
+    .then(function async(response) {
+      comments = response.data;
+    })
+    .catch(function (error) {
+      console.log('error: ', error.response);
+      return error.response;
+    });
+  return comments;
+};
+export const getAllComments = async (postId, token) => {
+  let comments;
+  let config = {
+    method: 'get',
+    url: `${URI_HTTP_BASEPATH}/comments/${postId}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  await axios(config)
+    .then(function async(response) {
+      comments = response.data;
+    })
+    .catch(function (error) {
+      console.log('error: ', error.response);
+      comments = error.response.status;
+    });
+  return comments;
+};
+
+export const getUserComments = async (username, token) => {
+  let comments;
+  let config = {
+    method: 'get',
+    url: `${URI_HTTP_BASEPATH}/comments/username/${username}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  await axios(config)
+    .then(function async(response) {
+      comments = response.data;
+    })
+    .catch(function (error) {
+      console.log('error: ', error.response);
+      comments = error.response.status;
+    });
+  return comments;
+};
 export default {
   setPost,
   getAllUserPosts,
   getByTags,
+  addComment,
+  getAllComments,
+  getUserComments,
 };

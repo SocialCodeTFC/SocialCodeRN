@@ -80,6 +80,8 @@ const UserPost = (props: UserPostProps) => {
             comments={item.comments}
             isFree={item.isFree}
             price={item.price}
+            id={item.id}
+            user={userAuth}
           />
         </View>
       )}

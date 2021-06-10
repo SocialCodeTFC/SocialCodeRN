@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  SafeAreaView,
+  DevSettings,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { authService } from '../../../services';
 import ProfileHeader from './components/profile-header';
@@ -26,22 +32,35 @@ const ProfileScreen = ({ navigation }) => {
   const getUserData = async () => {
     setUserAuth(JSON.parse(await AsyncStorage.getItem('userStorage')));
   };
+
+  const signOut = async () => {
+    await AsyncStorage.removeItem('userStorage');
+    DevSettings.reload();
+  };
+
   useEffect(() => {
     getUserData();
   }, []);
 
   useEffect(() => {
     if (userAuth) {
-      authService.getUserById(userAuth, AsyncStorage).then(response => {
-        const data = response as AuthServiceResponse;
-        setUserData({
-          id: data.id,
-          email: data.email,
-          name: data.firstName,
-          surname: data.lastName,
-          alias: data.username,
+      if (userAuth == '400') {
+        signOut();
+      } else {
+        authService.getUserById(userAuth, AsyncStorage).then(userData => {
+          console.log('response', userData);
+
+          console.log('sal', userData);
+          const data = userData as AuthServiceResponse;
+          setUserData({
+            id: data.id,
+            email: data.email,
+            name: data.firstName,
+            surname: data.lastName,
+            alias: data.username,
+          });
         });
-      });
+      }
     }
   }, [userAuth]);
 
@@ -84,7 +103,9 @@ const ProfileScreen = ({ navigation }) => {
       {activeTab == 0 && (
         <UserPosts userAuth={userAuth} navigation={navigation} />
       )}
-      {activeTab == 1 && <Comments />}
+      {activeTab == 1 && (
+        <Comments userAuth={userAuth} navigation={navigation} />
+      )}
       {activeTab == 2 && <SavedPosts />}
     </SafeAreaView>
   );
